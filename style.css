@@ -1,0 +1,322 @@
+/* ═══════════════════════════════════════════════════
+   KARAY — Feuille de style partagée
+   Contient : variables, reset, navigation, mobile menu, footer
+   ═══════════════════════════════════════════════════ */
+
+/* ── VARIABLES ── */
+:root {
+  --cream: #FAF7F2;
+  --warm-white: #FDF9F4;
+  --sand: #EDE5D8;
+  --sand-dark: #DDD0C0;
+  --terracotta: #C4724A;
+  --terracotta-light: #D98B62;
+  --terracotta-dark: #A35A35;
+  --sage: #7A9E87;
+  --sage-light: #A8C4B0;
+  --gold: #C9A96E;
+  --charcoal: #2C2420;
+  --warm-gray: #6B5F58;
+  --light-gray: #B8ADA6;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--charcoal);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── LIEN D'ÉVITEMENT (accessibilité) ── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: var(--terracotta);
+  color: white;
+  padding: .6rem 1.2rem;
+  border-radius: 0 0 10px 10px;
+  font-size: .85rem;
+  font-weight: 500;
+  text-decoration: none;
+  z-index: 9999;
+  transition: top .2s;
+}
+.skip-link:focus { top: 0; }
+
+/* ── TEXTURE DE BRUIT (subtile) ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;   /* FIX: était 9999 — posait le calque au-dessus de nav, modales et toast */
+  opacity: 0.4;
+}
+
+/* ── NAVIGATION ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 110;
+  padding: 1.2rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(250, 247, 242, 0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(196, 114, 74, 0.12);
+  transition: box-shadow 0.3s;
+}
+
+.nav-logo {
+  font-family: 'Lora', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--charcoal);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+}
+.nav-logo span { color: var(--terracotta); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--warm-gray);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--terracotta); }
+
+.nav-active {
+  color: var(--terracotta) !important;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.nav-cta {
+  background: var(--terracotta) !important;
+  color: white !important;
+  padding: 0.5rem 1.25rem !important;
+  border-radius: 50px !important;
+  font-weight: 500 !important;
+  transition: background 0.2s, transform 0.2s !important;
+}
+.nav-cta:hover {
+  background: var(--terracotta-dark) !important;
+  transform: translateY(-1px);
+}
+
+/* ── BURGER → CROIX ── */
+.burger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  position: relative;
+  z-index: 120;
+  flex-shrink: 0;
+}
+.burger span {
+  position: absolute;
+  left: 11px;
+  width: 22px;
+  height: 2px;
+  background: var(--charcoal);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.25s ease, top 0.3s ease;
+}
+.burger span:nth-child(1) { top: 15px; }
+.burger span:nth-child(2) { top: 21px; }
+.burger span:nth-child(3) { top: 27px; }
+.burger.active span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+.burger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.burger.active span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+/* ── MENU MOBILE ── */
+.mobile-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 105;
+  pointer-events: none;
+  visibility: hidden;
+  transition: visibility 0.3s;
+}
+.mobile-drawer.open {
+  pointer-events: auto;
+  visibility: visible;
+}
+.mobile-menu-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(44, 36, 32, 0.35);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+.mobile-drawer.open .mobile-menu-backdrop { opacity: 1; }
+
+.mobile-menu {
+  position: absolute;
+  top: 4.75rem;
+  right: 1rem;
+  left: 1rem;
+  max-width: 20rem;
+  margin-left: auto;
+  list-style: none;
+  background: var(--warm-white);
+  border: 1px solid var(--sand);
+  border-radius: 20px;
+  padding: 0.75rem 0;
+  box-shadow: 0 20px 50px rgba(44, 36, 32, 0.18);
+  max-height: min(70vh, 22rem);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  transform: translateY(-10px) scale(0.98);
+  opacity: 0;
+  transition: transform 0.28s ease, opacity 0.28s ease;
+}
+.mobile-drawer.open .mobile-menu {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+.mobile-menu li { border-bottom: 1px solid rgba(237, 229, 216, 0.6); }
+.mobile-menu li:last-child { border-bottom: none; padding-top: 0.35rem; }
+.mobile-menu a {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--charcoal);
+  text-decoration: none;
+  padding: 0.85rem 1.35rem;
+  transition: color 0.2s, background 0.2s;
+}
+.mobile-menu a:active { background: rgba(196, 114, 74, 0.06); }
+.mobile-menu a:hover { color: var(--terracotta); }
+.mobile-menu .nav-cta {
+  display: block;
+  text-align: center;
+  margin: 0.35rem 1rem 0.5rem;
+  padding: 0.65rem 1.2rem;
+  background: var(--terracotta);
+  color: white !important;
+  border-radius: 50px;
+  font-weight: 500;
+}
+.mobile-menu .nav-cta:hover { background: var(--terracotta-dark); color: white !important; }
+
+/* ── FOOTER (pages legales & secondaires) ── */
+footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.78rem;
+  color: var(--light-gray);
+  border-top: 1px solid var(--sand);
+}
+footer a {
+  color: var(--terracotta);
+  text-decoration: none;
+}
+
+/* ── ICÔNE PANIER (nav) ── */
+.nav-cart {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: .38rem .45rem;
+  color: var(--warm-gray);
+  text-decoration: none;
+  transition: color .2s;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.nav-cart:hover { color: var(--terracotta); }
+.nav-cart svg { width: 20px; height: 20px; display: block; }
+.cart-badge {
+  position: absolute;
+  top: 0; right: 0;
+  background: var(--terracotta);
+  color: white;
+  font-size: .55rem;
+  font-weight: 700;
+  min-width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: none;           /* JS le passe en "flex" quand count > 0 */
+  align-items: center;
+  justify-content: center;
+  padding: 0 2px;
+  line-height: 1;
+  /* FIX: garantir que le badge est au-dessus du calque de bruit */
+  z-index: 2;
+}
+
+/* ── ICÔNES DE SERVICE (couleurs partagées entre toutes les pages) ── */
+/* index.html utilisait "icon-terracotta", documents.html "icon-terra" / "icon-dark" :
+   on unifie ici pour que tarifs.html et toutes les pages en bénéficient */
+.icon-terra,
+.icon-terracotta { background: rgba(196,114,74,.12); }
+.icon-sage       { background: rgba(122,158,135,.15); }
+.icon-gold       { background: rgba(201,169,110,.15); }
+.icon-dark,
+.icon-charcoal   { background: rgba(44,36,32,.08); }
+
+/* ── BOUTON AJOUTER AU PANIER (cartes services) ── */
+.svc-btn-cart {
+  background: transparent;
+  border: 2px solid var(--terracotta);
+  color: var(--terracotta);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .9rem;
+  font-weight: 500;
+  transition: all .2s;
+}
+.svc-btn-cart:hover {
+  background: var(--terracotta);
+  color: white;
+  transform: translateY(-1px);
+}
+.svc-btn-cart.added {
+  background: var(--sage);
+  border-color: var(--sage);
+  color: white;
+  cursor: default;
+  transform: none;
+  opacity: .85;
+}
+
+/* ── ACCESSIBILITÉ : réduction des animations système ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── RESPONSIVE NAVIGATION ── */
+@media (max-width: 900px) {
+  nav { padding: 0.65rem 1.1rem; }
+  .nav-links { display: none; }
+  .burger { display: block; }
+}

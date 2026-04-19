@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ressources & Documents &mdash; Karay</title>
+  <meta name="description" content="T&eacute;l&eacute;chargez gratuitement nos guides, mod&egrave;les de workflows et ressources IA pour particuliers, entreprises et associations."/>
+  <link rel="canonical" href="https://karay.fr/documents.html"/>
+  <meta property="og:type"        content="website"/>
+  <meta property="og:url"         content="https://karay.fr/documents.html"/>
+  <meta property="og:title"       content="Ressources & Guides IA gratuits — Karay"/>
+  <meta property="og:description" content="Guides PDF gratuits, prompts essentiels et workflows IA à télécharger pour particuliers, entreprises et associations."/>
+  <link rel="icon" type="image/svg+xml" href="karay-favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+
+    /* HERO */
+    .hero{padding:7rem 2rem 3rem;text-align:center;max-width:700px;margin:0 auto;}
+    .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.75rem;
+      font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--terracotta);margin-bottom:1rem;}
+    .hero h1{font-family:'Lora',serif;font-size:clamp(1.8rem,4vw,2.8rem);
+      font-weight:700;line-height:1.15;letter-spacing:-.02em;
+      color:var(--charcoal);margin-bottom:1rem;}
+    .hero h1 em{font-style:italic;color:var(--terracotta);}
+    .hero p{font-size:1rem;font-weight:300;color:var(--warm-gray);
+      line-height:1.7;margin-bottom:2rem;}
+
+    /* FILTER TABS */
+    .filter-bar{display:flex;justify-content:center;gap:.6rem;
+      flex-wrap:wrap;margin-bottom:3rem;padding:0 2rem;}
+    .filter-btn{padding:.5rem 1.2rem;border-radius:50px;font-size:.85rem;
+      font-weight:400;border:1.5px solid var(--sand);background:white;
+      color:var(--warm-gray);cursor:pointer;transition:all .2s;
+      font-family:'DM Sans',sans-serif;}
+    .filter-btn:hover{border-color:var(--terracotta-light);color:var(--terracotta);}
+    .filter-btn.active{background:var(--terracotta);color:white;
+      border-color:var(--terracotta);}
+
+    /* GRID */
+    .docs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+      gap:1.4rem;max-width:1100px;margin:0 auto;padding:0 2rem 5rem;}
+
+    .doc-card{background:white;border-radius:20px;padding:1.8rem;
+      border:1px solid var(--sand);transition:transform .25s,box-shadow .25s;
+      display:flex;flex-direction:column;gap:1rem;
+      opacity:1;transition:opacity .3s,transform .25s,box-shadow .25s;}
+    .doc-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(44,36,32,.1);}
+    .doc-card.hidden{display:none;}
+
+    .doc-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;}
+    .doc-icon{width:48px;height:48px;border-radius:14px;display:flex;
+      align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+    .icon-terra{background:rgba(196,114,74,.12);}
+    .icon-sage{background:rgba(122,158,135,.15);}
+    .icon-gold{background:rgba(201,169,110,.15);}
+    .icon-dark{background:rgba(44,36,32,.08);}
+
+    .doc-badges{display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;}
+    .doc-badge{font-size:.65rem;font-weight:500;letter-spacing:.08em;
+      text-transform:uppercase;padding:.2rem .6rem;border-radius:50px;}
+    .badge-free{background:rgba(122,158,135,.15);color:var(--sage);}
+    .badge-pro{background:rgba(196,114,74,.12);color:var(--terracotta);}
+    .badge-new{background:var(--charcoal);color:white;}
+
+    .doc-title{font-family:'Lora',serif;font-size:1.05rem;font-weight:600;
+      color:var(--charcoal);line-height:1.35;}
+    .doc-desc{font-size:.85rem;color:var(--warm-gray);line-height:1.65;flex:1;}
+
+    .doc-meta{display:flex;align-items:center;gap:.6rem;
+      font-size:.75rem;color:var(--light-gray);}
+    .doc-meta span{display:flex;align-items:center;gap:.3rem;}
+
+    .doc-targets{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:-.2rem;}
+    .doc-target{font-size:.68rem;padding:.18rem .55rem;border-radius:50px;
+      font-weight:500;}
+    .target-part{background:rgba(122,158,135,.12);color:var(--sage);}
+    .target-ent{background:rgba(196,114,74,.1);color:var(--terracotta);}
+    .target-asso{background:rgba(201,169,110,.15);color:#8B6914;}
+
+    .doc-footer{display:flex;gap:.7rem;align-items:center;margin-top:.2rem;}
+    .btn-dl{flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;
+      padding:.7rem 1rem;border-radius:50px;font-size:.85rem;font-weight:500;
+      text-decoration:none;transition:all .2s;font-family:'DM Sans',sans-serif;
+      border:none;cursor:pointer;}
+    .btn-dl-primary{background:var(--terracotta);color:white;
+      box-shadow:0 3px 12px rgba(196,114,74,.3);}
+    .btn-dl-primary:hover{background:var(--terracotta-dark);transform:translateY(-1px);}
+    .btn-dl-secondary{background:var(--sand);color:var(--warm-gray);}
+    .btn-dl-secondary:hover{background:var(--sand-dark);color:var(--charcoal);}
+    .btn-preview{width:36px;height:36px;border-radius:50%;background:var(--sand);
+      border:none;cursor:pointer;display:flex;align-items:center;
+      justify-content:center;font-size:.9rem;transition:background .2s;flex-shrink:0;}
+    .btn-preview:hover{background:var(--sand-dark);}
+
+    /* MODAL PREVIEW */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(44,36,32,.6);
+      z-index:200;align-items:center;justify-content:center;padding:2rem;}
+    .modal-overlay.open{display:flex;}
+    .modal{background:white;border-radius:24px;padding:2.5rem;max-width:560px;
+      width:100%;max-height:85vh;overflow-y:auto;position:relative;}
+    .modal-close{position:absolute;top:1.2rem;right:1.2rem;background:var(--sand);
+      border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;
+      font-size:1rem;display:flex;align-items:center;justify-content:center;
+      transition:background .2s;}
+    .modal-close:hover{background:var(--sand-dark);}
+    .modal h3{font-family:'Lora',serif;font-size:1.3rem;font-weight:700;
+      color:var(--charcoal);margin-bottom:.6rem;}
+    .modal p{font-size:.9rem;color:var(--warm-gray);line-height:1.7;margin-bottom:1rem;}
+    .modal ul{padding-left:1.2rem;display:flex;flex-direction:column;gap:.4rem;}
+    .modal ul li{font-size:0.9rem;color:var(--warm-gray);line-height:1.5;}
+    .modal-footer{margin-top:1.5rem;display:flex;gap:.8rem;}
+
+    /* SECTION TITLE */
+    .section-head{text-align:center;margin-bottom:2rem;padding:0 2rem;}
+    .section-label{font-size:.75rem;font-weight:500;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--terracotta);margin-bottom:.5rem;}
+    .section-title{font-family:'Lora',serif;font-size:clamp(1.4rem,3vw,2rem);
+      font-weight:700;color:var(--charcoal);}
+
+    /* CTA BOTTOM */
+    .cta-strip{background:var(--terracotta);padding:3.5rem 2rem;text-align:center;}
+    .cta-strip h2{font-family:'Lora',serif;font-size:clamp(1.4rem,3vw,2rem);
+      font-weight:700;color:white;margin-bottom:1.2rem;}
+    .cta-strip h2 em{font-style:italic;opacity:.85;}
+    .btn-light{display:inline-block;background:white;color:var(--terracotta);
+      padding:.85rem 2rem;border-radius:50px;font-size:.95rem;font-weight:500;
+      text-decoration:none;transition:all .2s;
+      box-shadow:0 4px 16px rgba(0,0,0,.15);}
+    .btn-light:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2);}
+
+    @media(max-width:900px){
+      .hero{padding:5.25rem 1rem 1.5rem;}
+      .hero p{margin-bottom:1rem;}
+      .filter-bar{margin-bottom:1.5rem;padding:0 1rem;gap:.45rem;}
+      .filter-btn{padding:.4rem .85rem;font-size:.78rem;}
+      .docs-grid{padding:0 1rem 2.5rem;gap:1rem;}
+      .doc-card{padding:1.35rem;}
+      .section-head{margin-bottom:1.25rem;padding:0 1rem;}
+      .cta-strip{padding:2rem 1rem;}
+    }
+    @media(max-width:600px){
+      .docs-grid{grid-template-columns:1fr;}
+      .modal{padding:1.5rem;}
+      .modal-footer{flex-direction:column;}
+      .hero{padding:5rem .85rem 1.25rem;}
+      .docs-grid{padding:0 .85rem 2rem;}
+      .filter-bar{padding:0 .85rem;}
+      .cta-strip{padding:1.65rem .85rem;}
+    }
+  </style>
+</head>
+<body>
+<a href="#main-docs" class="skip-link">Aller au contenu principal</a>
+
+<nav>
+  <a class="nav-logo" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 80" height="32" style="display:block;"><polygon points="36,2 66,18 66,52 36,68 6,52 6,18" fill="none" stroke="#C4724A" stroke-width="3" stroke-linejoin="round"/><path d="M20,18 L20,52" stroke="#C4724A" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M20,28 Q34,20 46,14" stroke="#C4724A" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M20,36 Q34,44 48,52" stroke="#7A9E87" stroke-width="5" stroke-linecap="round" fill="none"/><circle cx="60" cy="14" r="5" fill="#C9A96E"/><text x="84" y="47" font-family="'Lora',Georgia,serif" font-size="36" font-weight="700" font-style="italic" fill="#2C2420" letter-spacing="-1">Karay</text></svg></a>
+  <ul class="nav-links">
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="tarifs.html">Tarifs</a></li>
+      <li><a href="index.html#comment">Comment &ccedil;a marche</a></li>
+      <li><a href="documents.html" class="nav-active">Ressources</a></li>
+    <li><a href="audit.html" class="nav-cta">Audit gratuit &rarr;</a></li>
+  </ul>
+  <a href="panier.html" class="nav-cart" aria-label="Voir le panier">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    <span class="cart-badge">0</span>
+  </a>
+  <button type="button" class="burger" id="burger-btn" onclick="toggleMobile()" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-drawer">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+  <div class="mobile-menu-backdrop" onclick="toggleMobile()" aria-hidden="true"></div>
+  <ul class="mobile-menu" id="mobile-menu" role="menu">
+    <li><a href="index.html#services" onclick="toggleMobile()">Services</a></li>
+    <li><a href="tarifs.html" onclick="toggleMobile()">Tarifs</a></li>
+    <li><a href="index.html#comment" onclick="toggleMobile()">Comment &ccedil;a marche</a></li>
+    <li><a href="documents.html" onclick="toggleMobile()">Ressources</a></li>
+    <li><a href="audit.html" class="nav-cta" role="menuitem" onclick="toggleMobile()">Audit gratuit &rarr;</a></li>
+  </ul>
+</div>
+
+<main id="main-docs" tabindex="-1">
+<div class="hero">
+  <p class="eyebrow">&#10022; Ressources gratuites & professionnelles</p>
+  <h1>Guides, mod&egrave;les &<br/><em>workflows pr&ecirc;ts &agrave; l'emploi</em></h1>
+  <p>T&eacute;l&eacute;chargez nos ressources pour particuliers, entreprises et associations. Certaines sont libres d'acc&egrave;s, d'autres sont incluses dans nos accompagnements.</p>
+</div>
+
+<!-- FILTERS -->
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filter('all', this)">Tout voir</button>
+  <button class="filter-btn" onclick="filter('particulier', this)">&#128100; Particuliers</button>
+  <button class="filter-btn" onclick="filter('entreprise', this)">&#127970; Entreprises</button>
+  <button class="filter-btn" onclick="filter('association', this)">&#129309; Associations</button>
+  <button class="filter-btn" onclick="filter('gratuit', this)">&#127873; Gratuits</button>
+</div>
+
+<!-- DOCS GRID -->
+<div class="docs-grid" id="docs-grid">
+
+  <!-- 1 -->
+  <div class="doc-card" data-tags="particulier entreprise association gratuit">
+    <div class="doc-header">
+      <div class="doc-icon icon-terra">&#128216;</div>
+      <div class="doc-badges"><span class="doc-badge badge-free">Gratuit</span></div>
+    </div>
+    <div class="doc-title">Guide d&eacute;butant : comprendre et utiliser l'IA en 2025</div>
+    <div class="doc-desc">Les bases absolues de l'IA expliqu&eacute;es clairement : qu'est-ce que ChatGPT, comment lui parler, ce qu'on peut (et ne peut pas) lui demander. Id&eacute;al pour d&eacute;marrer sans jargon.</div>
+    <div class="doc-targets">
+      <span class="doc-target target-part">Particuliers</span>
+      <span class="doc-target target-ent">Entreprises</span>
+      <span class="doc-target target-asso">Associations</span>
+    </div>
+    <div class="doc-meta">
+      <span>&#128196; PDF &middot; 18 pages</span>
+      <span>&middot;</span>
+      <span>&#10003; Disponible</span>
+    </div>
+    <div class="doc-footer">
+      <button class="btn-dl btn-dl-primary" onclick="openDlModal('guide-debutant')">&#10003; T&eacute;l&eacute;charger</button>
+      <button class="btn-preview" onclick="openModal('guide-debutant')" title="Aper&ccedil;u">&#128065;</button>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="doc-card" data-tags="particulier entreprise gratuit">
+    <div class="doc-header">
+      <div class="doc-icon icon-sage">&#128161;</div>
+      <div class="doc-badges">
+        <span class="doc-badge badge-free">Gratuit</span>
+        <span class="doc-badge badge-new">Nouveau</span>
+      </div>
+    </div>
+    <div class="doc-title">50 prompts essentiels pour votre activit&eacute;</div>
+    <div class="doc-desc">Une biblioth&egrave;que de prompts test&eacute;s et optimis&eacute;s : r&eacute;daction d'emails, cr&eacute;ation de contenu, analyse, r&eacute;sum&eacute; de documents, gestion du temps. &Agrave; copier-coller directement.</div>
+    <div class="doc-targets">
+      <span class="doc-target target-part">Particuliers</span>
+      <span class="doc-target target-ent">Entreprises</span>
+    </div>
+    <div class="doc-meta"><span>&#128196; PDF &middot; 12 pages</span><span>&middot;</span><span>&#10003; Disponible</span></div>
+    <div class="doc-footer">
+      <button class="btn-dl btn-dl-primary" onclick="openDlModal('prompts-50')">&#10003; T&eacute;l&eacute;charger</button>
+      <button class="btn-preview" onclick="openModal('prompts-50')" title="Aper&ccedil;u">&#128065;</button>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="doc-card" data-tags="entreprise pro">
+    <div class="doc-header">
+      <div class="doc-icon icon-gold">&#9881;</div>
+      <div class="doc-badges"><span class="doc-badge badge-pro">Accompagnement</span></div>
+    </div>
+    <div class="doc-title">Workflow : Qualification automatique de leads</div>
+    <div class="doc-desc">Template Make.com pr&ecirc;t &agrave; l'emploi : formulaire prospect &rarr; scoring automatique &rarr; notification email &rarr; entr&eacute;e CRM &rarr; email de bienvenue personnalis&eacute;. &Agrave; adapter &agrave; votre activit&eacute;.</div>
+    <div class="doc-targets">
+      <span class="doc-target target-ent">Entreprises</span>
+    </div>
+    <div class="doc-meta"><span>&#9881; Make.com blueprint</span><span>&middot;</span><span>&#128274; Sur accompagnement</span></div>
+    <div class="doc-footer">
+      <a href="audit.html" class="btn-dl btn-dl-primary">Obtenir ce workflow</a>
+      <button class="btn-preview" onclick="openModal('workflow-leads')" title="Aper&ccedil;u">&#128065;</button>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="doc-card" data-tags="entreprise association pro">
+    <div class="doc-header">
+      <div class="doc-icon icon-dark">&#128231;</div>
+      <div class="doc-badges"><span class="doc-badge badge-pro">Accompagnement</span></div>
+    </div>
+    <div class="doc-title">Workflow : Gestion automatis&eacute;e des emails entrants</div>
+    <div class="doc-desc">Triage intelligent des emails, r&eacute;ponses automatiques selon le type de demande, transfert vers la bonne personne, archivage et suivi. Compatible Gmail & Outlook.</div>
+    <div class="doc-targets">
+      <span class="doc-target target-ent">Entreprises</span>
+      <span class="doc-target target-asso">Associations</span>
+    </div>
+    <div class="doc-meta"><span>&#9881; n8n / Make.com</span><span>&middot;</span><span>&#128274; Sur accompagnement</span></div>
+    <div class="doc-footer">
+      <a href="audit.html" class="btn-dl btn-dl-primary">Obtenir ce workflow</a>
+      <button class="btn-preview" onclick="openModal('workflow-email')" title="Aper&ccedil;u">&#128065;</button>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="doc-card" data-tags="association gratuit">
+    <div class="doc-header">
+      <div class="doc-icon icon-gold">&#127891;</div>
+      <div class="doc-badges"><span class="doc-badge badge-free">Gratuit</span></div>
+    </div>
+    <div class="doc-title">Guide IA pour associations : par o&ugrave; commencer</div>
+    <div class="doc-desc">Sp&eacute;cialement con&ccedil;u pour les structures associatives avec peu de ressources techniques : communication, gestion b&eacute;n&eacute;voles, recherche de financements, comptes-rendus automatis&eacute;s.</div>
+    <div class="doc-targets">
+      <span class="doc-target target-asso">Associations</span>
+    </div>
+    <div class="doc-meta"><span>&#128196; PDF &middot; 14 pages</span><span>&middot;</span><span>&#10003; Disponible</span></div>
+    <div class="doc-footer">
+      <button class="btn-dl btn-dl-primary" onclick="openDlModal('guide-asso')">&#10003; T&eacute;l&eacute;charger</button>
+      <button class="btn-preview" onclick="openModal('guide-asso')" title="Aper&ccedil;u">&#128065;</button>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="doc-card" data-tags="entreprise association pro">
+    <div class="doc-header">
+      <div class="doc-icon icon-sage">&#128202;</div>
+      <div class="doc-badges"><span class="doc-badge badge-pro">Accompagnement</span></div>
+    </div>
+    <div class="doc-title">Workflow : Rapport hebdomadaire automatique</div>
+    <div class="doc-desc">Collecte automatique des donn&eacute;es cl&eacute;s, synth&egrave;se IA, mise en forme et envoi par email chaque lundi matin. Adapt&eacute; aux &eacute;quipes, dirigeants et conseils d'administration associatifs.</div>
+    <div class="doc-targets">
+      <span class="doc-target target-ent">Entreprises</span>
+      <span class="doc-target target-asso">Associations</span>
+    </div>
+    <div class="doc-meta"><span>&#9881; Make.com + Google Sheets</span><span>&middot;</span><span>&#128274; Sur accompagnement</span></div>
+    <div class="doc-footer">
+      <a href="audit.html" class="btn-dl btn-dl-primary">Obtenir ce workflow</a>
+      <button class="btn-preview" onclick="openModal('workflow-report')" title="Aper&ccedil;u">&#128065;</button>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="doc-card" data-tags="particulier gratuit">
+    <div class="doc-header">
+      <div class="doc-icon icon-terra">&#127919;</div>
+      <div class="doc-badges"><span class="doc-badge badge-free">Gratuit</span></div>
+    </div>
+    <div class="doc-title">Checklist : Int&eacute;grer l'IA dans sa routine quotidienne</div>
+    <div class="doc-desc">30 actions concr&egrave;tes pour commencer &agrave; utiliser l'IA chaque jour sans changer radicalement ses habitudes. Adapt&eacute; aux freelances, cr&eacute;ateurs et ind&eacute;pendants.</div>
+    <div class="doc-targets">
+      <span class="doc-target target-part">Particuliers</span>
+    </div>
+    <div class="doc-meta"><span>&#128196; PDF &middot; 4 pages</span><span>&middot;</span><span>&#10003; Disponible</span></div>
+    <div class="doc-footer">
+      <button class="btn-dl btn-dl-primary" onclick="openDlModal('checklist-routine')">&#10003; T&eacute;l&eacute;charger</button>
+      <button class="btn-preview" onclick="openModal('checklist-routine')" title="Aper&ccedil;u">&#128065;</button>
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="doc-card" data-tags="entreprise pro">
+    <div class="doc-header">
+      <div class="doc-icon icon-dark">&#127760;</div>
+      <div class="doc-badges"><span class="doc-badge badge-pro">Accompagnement</span></div>
+    </div>
+    <div class="doc-title">Audit SEO IA : mod&egrave;le d'analyse et plan d'action</div>
+    <div class="doc-desc">Template complet pour auditer un site web avec l'IA : analyse de mots-cl&eacute;s, audit technique, recommandations de contenu, plan d'action prioris&eacute; sur 90 jours.</div>
+    <div class="doc-targets">
+      <span class="doc-target target-ent">Entreprises</span>
+    </div>
+    <div class="doc-meta"><span>&#128196; PDF + Google Sheets</span><span>&middot;</span><span>&#128274; Sur accompagnement</span></div>
+    <div class="doc-footer">
+      <a href="audit.html" class="btn-dl btn-dl-primary">Obtenir ce document</a>
+      <button class="btn-preview" onclick="openModal('audit-seo')" title="Aper&ccedil;u">&#128065;</button>
+    </div>
+  </div>
+
+  <!-- 9 -->
+  <div class="doc-card" data-tags="particulier entreprise association gratuit">
+    <div class="doc-header">
+      <div class="doc-icon icon-sage">&#128506;</div>
+      <div class="doc-badges">
+        <span class="doc-badge badge-free">Gratuit</span>
+        <span class="doc-badge badge-new">Nouveau</span>
+      </div>
+    </div>
+    <div class="doc-title">Carte des outils IA en 2025 : lequel choisir ?</div>
+    <div class="doc-desc">Vue d'ensemble illustr&eacute;e de l'&eacute;cosyst&egrave;me IA : ChatGPT, Claude, Gemini, Midjourney, Make, n8n&hellip; Pour chaque outil : &agrave; quoi &ccedil;a sert, pour qui, gratuit ou payant.</div>
+    <div class="doc-targets">
+      <span class="doc-target target-part">Particuliers</span>
+      <span class="doc-target target-ent">Entreprises</span>
+      <span class="doc-target target-asso">Associations</span>
+    </div>
+    <div class="doc-meta"><span>&#128196; PDF &middot; 8 pages</span><span>&middot;</span><span>&#10003; Disponible</span></div>
+    <div class="doc-footer">
+      <button class="btn-dl btn-dl-primary" onclick="openDlModal('carte-outils')">&#10003; T&eacute;l&eacute;charger</button>
+      <button class="btn-preview" onclick="openModal('carte-outils')" title="Aper&ccedil;u">&#128065;</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOnBg(event)">
+  <div class="modal" id="modal-content">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- DOWNLOAD EMAIL MODAL -->
+<div class="modal-overlay" id="dl-overlay" onclick="if(event.target===this)closeDlModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeDlModal()">&times;</button>
+    <h3 id="dl-title">T&eacute;l&eacute;charger votre ressource</h3>
+    <p style="font-size:.85rem;color:var(--warm-gray);margin-bottom:1.25rem;line-height:1.6;">Entrez vos coordonn&eacute;es pour acc&eacute;der gratuitement au t&eacute;l&eacute;chargement. C&rsquo;est imm&eacute;diat.</p>
+    <form action="https://formspree.io/f/VOTRE_ID_FORMSPREE" method="POST" onsubmit="handleDlSubmit(event)" style="display:grid;gap:0.8rem;">
+      <input type="hidden" name="source"            value="documents-download"/>
+      <input type="hidden" name="ressource_demandee" id="dl-resource" value=""/>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;">
+        <div>
+          <label style="font-size:0.78rem;color:var(--warm-gray);display:block;margin-bottom:0.3rem;">Pr&eacute;nom *</label>
+          <input type="text" name="prenom" required placeholder="Votre pr&eacute;nom" style="width:100%;padding:0.7rem 0.9rem;border:1.5px solid var(--sand-dark);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.88rem;background:white;outline:none;"/>
+        </div>
+        <div>
+          <label style="font-size:0.78rem;color:var(--warm-gray);display:block;margin-bottom:0.3rem;">Email *</label>
+          <input type="email" name="email" required placeholder="votre@email.com" style="width:100%;padding:0.7rem 0.9rem;border:1.5px solid var(--sand-dark);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.88rem;background:white;outline:none;"/>
+        </div>
+      </div>
+      <div>
+        <label style="font-size:0.78rem;color:var(--warm-gray);display:block;margin-bottom:0.3rem;">T&eacute;l&eacute;phone <span style="font-weight:300">(optionnel)</span></label>
+        <input type="tel" name="telephone" placeholder="+33 6 00 00 00 00" style="width:100%;padding:0.7rem 0.9rem;border:1.5px solid var(--sand-dark);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.88rem;background:white;outline:none;"/>
+      </div>
+      <button type="submit" class="btn-dl btn-dl-primary" style="border:none;cursor:pointer;font-family:'DM Sans',sans-serif;">Recevoir le document &rarr;</button>
+      <p style="font-size:0.72rem;color:var(--light-gray);text-align:center;">Vos donn&eacute;es sont confidentielles et ne seront jamais revendues.</p>
+    </form>
+  </div>
+</div>
+
+<div class="cta-strip">
+  <h2>Vous cherchez un document<br/><em>sur mesure pour votre structure ?</em></h2>
+  <a href="audit.html" class="btn-light">Faire l'audit gratuit &rarr;</a>
+</div>
+</main><!-- /main-docs -->
+
+<footer>
+  <a href="index.html">&larr; Retour au site</a> &nbsp;&middot;&nbsp;
+  &copy; 2025 Karay &nbsp;&middot;&nbsp;
+  <a href="mentions-legales.html">Mentions l&eacute;gales</a> &nbsp;&middot;&nbsp;
+  <a href="politique-confidentialite.html">Confidentialit&eacute;</a> &nbsp;&middot;&nbsp;
+  <a href="cgv.html">CGV</a>
+</footer>
+
+<script>
+const modalData = {
+  'guide-debutant': {
+    title: 'Guide d\u00e9butant : comprendre et utiliser l\'IA en 2025',
+    desc: 'Ce guide de 18 pages d\u00e9mystifie l\'intelligence artificielle pour les non-techniciens. Vous apprendrez \u00e0 :',
+    items: [
+      'Comprendre ce qu\'est vraiment l\'IA (sans jargon)',
+      'Cr\u00e9er et configurer un compte ChatGPT / Claude',
+      'Formuler des demandes claires et obtenir de bons r\u00e9sultats',
+      '\u00c9viter les 5 erreurs les plus courantes des d\u00e9butants',
+      'Identifier vos 3 premiers cas d\'usage personnels ou professionnels'
+    ],
+    cta: 'T\u00e9l\u00e9charger le guide'
+  },
+  'prompts-50': {
+    title: '50 prompts essentiels pour votre activit\u00e9',
+    desc: 'Une biblioth\u00e8que op\u00e9rationnelle organis\u00e9e en 5 cat\u00e9gories :',
+    items: [
+      '10 prompts pour r\u00e9diger des emails professionnels percutants',
+      '10 prompts pour cr\u00e9er du contenu (posts, articles, fiches produit)',
+      '10 prompts pour analyser, r\u00e9sumer et structurer des informations',
+      '10 prompts pour la gestion du temps et la planification',
+      '10 prompts pour la relation client et le service apr\u00e8s-vente'
+    ],
+    cta: 'T\u00e9l\u00e9charger les 50 prompts'
+  },
+  'workflow-leads': {
+    title: 'Workflow : Qualification automatique de leads',
+    desc: 'Ce blueprint Make.com automatise tout le cycle de qualification prospect. Il inclut :',
+    items: [
+      'Capture du formulaire et scoring automatique selon vos crit\u00e8res',
+      'Notification instantan\u00e9e \u00e0 votre \u00e9quipe commerciale',
+      'Cr\u00e9ation automatique de la fiche dans votre CRM (HubSpot, Notion, Airtable)',
+      'Email de bienvenue personnalis\u00e9 selon le profil du prospect',
+      'Suivi et relance automatique \u00e0 J+3 et J+7'
+    ],
+    cta: 'Faire l\'audit pour obtenir ce workflow'
+  },
+  'workflow-email': {
+    title: 'Workflow : Gestion automatis\u00e9e des emails entrants',
+    desc: 'Fini de trier manuellement votre bo\u00eete mail. Ce workflow inclut :',
+    items: [
+      'Classification automatique par type (devis, SAV, info, r\u00e9clamation)',
+      'R\u00e9ponse automatique adapt\u00e9e au type de demande',
+      'Transfert vers le bon interlocuteur selon le contenu',
+      'Archivage structur\u00e9 et tag automatique',
+      'Tableau de bord hebdomadaire des volumes re\u00e7us'
+    ],
+    cta: 'Faire l\'audit pour obtenir ce workflow'
+  },
+  'guide-asso': {
+    title: 'Guide IA pour associations : par o\u00f9 commencer',
+    desc: 'Con\u00e7u sp\u00e9cifiquement pour les structures associatives avec peu de budget et de ressources techniques :',
+    items: [
+      'Les 5 outils IA gratuits les plus utiles pour une association',
+      'Automatiser la communication (newsletters, r\u00e9seaux sociaux)',
+      'Faciliter la gestion des b\u00e9n\u00e9voles avec l\'IA',
+      'R\u00e9diger des dossiers de subvention plus efficacement',
+      'Organiser vos AG et comptes-rendus avec l\'IA'
+    ],
+    cta: 'T\u00e9l\u00e9charger le guide'
+  },
+  'workflow-report': {
+    title: 'Workflow : Rapport hebdomadaire automatique',
+    desc: 'Chaque lundi matin, vos parties prenantes re\u00e7oivent un rapport clair et structur\u00e9. Le workflow :',
+    items: [
+      'Collecte les donn\u00e9es depuis vos sources (Sheets, CRM, formulaires)',
+      'G\u00e9n\u00e8re une synth\u00e8se intelligente via l\'IA',
+      'Formate le rapport selon votre charte (logo, couleurs)',
+      'Envoie automatiquement par email aux destinataires d\u00e9finis',
+      'Archive chaque rapport dans un dossier Google Drive dat\u00e9'
+    ],
+    cta: 'Faire l\'audit pour obtenir ce workflow'
+  },
+  'checklist-routine': {
+    title: 'Checklist : Int\u00e9grer l\'IA dans sa routine quotidienne',
+    desc: '30 actions concr\u00e8tes r\u00e9parties sur 4 semaines pour cr\u00e9er de nouvelles habitudes avec l\'IA :',
+    items: [
+      'Semaine 1 : D\u00e9couverte et premiers usages simples',
+      'Semaine 2 : Optimisation de la communication \u00e9crite',
+      'Semaine 3 : Organisation et gestion du temps',
+      'Semaine 4 : Cr\u00e9ation de contenu et veille automatis\u00e9e',
+      'Bonus : 10 habitudes IA des freelances les plus productifs'
+    ],
+    cta: 'T\u00e9l\u00e9charger la checklist'
+  },
+  'audit-seo': {
+    title: 'Audit SEO IA : mod\u00e8le d\'analyse et plan d\'action',
+    desc: 'Un template complet pour auditer votre site et construire une strat\u00e9gie SEO avec l\'IA :',
+    items: [
+      'Grille d\'audit technique (vitesse, mobile, structure)',
+      'Analyse de mots-cl\u00e9s assist\u00e9e par IA (volume, intention, concurrence)',
+      'Audit de contenu existant avec recommandations de mise \u00e0 jour',
+      'Plan d\'action prioris\u00e9 sur 90 jours avec objectifs mesurables',
+      'Tableau de suivi mensuel des positions et du trafic'
+    ],
+    cta: 'Faire l\'audit pour obtenir ce document'
+  },
+  'carte-outils': {
+    title: 'Carte des outils IA en 2025 : lequel choisir ?',
+    desc: 'Une cartographie claire et \u00e0 jour de l\'\u00e9cosyst\u00e8me IA, organis\u00e9e par usage :',
+    items: [
+      'G\u00e9n\u00e9ration de texte : ChatGPT, Claude, Gemini \u2014 comparatif honn\u00eate',
+      'G\u00e9n\u00e9ration d\'images : Midjourney, Ideogram, DALL-E, Firefly',
+      'Automatisation : Make, n8n, Zapier \u2014 pour quel usage ?',
+      'Outils m\u00e9tier : Notion IA, Canva IA, Gamma, Beautiful.ai',
+      'Grille de choix selon votre profil et votre budget'
+    ],
+    cta: 'T\u00e9l\u00e9charger la carte'
+  }
+};
+
+function openModal(id) {
+  const d = modalData[id];
+  if (!d) return;
+  const isFree = d.cta.includes('T\u00e9l\u00e9charger');
+  document.getElementById('modal-body').innerHTML = `
+    <h3>${d.title}</h3>
+    <p>${d.desc}</p>
+    <ul>${d.items.map(i => `<li>${i}</li>`).join('')}</ul>
+    <div class="modal-footer">
+      ${isFree
+        ? `<button class="btn-dl btn-dl-primary" style="flex:1;border:none;cursor:pointer;" onclick="openDlModal('${id}')">&#10003; ${d.cta}</button>`
+        : `<a href="audit.html" class="btn-dl btn-dl-primary" style="flex:1;text-align:center;">${d.cta}</a>`
+      }
+      <button class="btn-dl btn-dl-secondary" style="flex:0 0 auto;" onclick="closeModal()">Fermer</button>
+    </div>
+  `;
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+/* Mapping ID → fichier téléchargeable */
+const downloadFiles = {
+  'guide-debutant':    'guide-debutant-ia-2025.pdf',
+  'prompts-50':        'prompts-50-essentiels.pdf',
+  'guide-asso':        'guide-ia-associations-2025.pdf',
+  'checklist-routine': 'checklist-routine-ia.pdf',
+  'carte-outils':      'carte-outils-ia-2025.pdf'
+};
+
+let currentDlFile = null;
+
+function openDlModal(id) {
+  closeModal();
+  const d = modalData[id];
+  const resourceName = d ? d.title : id;
+  currentDlFile = downloadFiles[id] || null;
+  document.getElementById('dl-resource').value = resourceName;
+  document.getElementById('dl-title').textContent = resourceName;
+  document.getElementById('dl-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDlModal() {
+  document.getElementById('dl-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleDlSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
+  btn.textContent = 'Envoi\u2026';
+  btn.disabled = true;
+
+  const triggerDownload = () => {
+    if (currentDlFile) {
+      const a = document.createElement('a');
+      a.href = currentDlFile;
+      a.download = currentDlFile.split('/').pop();
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      btn.textContent = '\u2713 T\u00e9l\u00e9chargement lanc\u00e9 !';
+    } else {
+      btn.textContent = '\u2713 Demand\u00e9 ! Vous recevrez le fichier par email.';
+    }
+    btn.style.background = '#7A9E87';
+    form.reset();
+    setTimeout(closeDlModal, 2800);
+  };
+
+  fetch(form.action, {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  }).then(triggerDownload).catch(triggerDownload);
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModalOnBg(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+function filter(tag, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.doc-card').forEach(card => {
+    const tags = card.dataset.tags || '';
+    if (tag === 'all' || tags.includes(tag)) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+<script>
+  function toggleMobile() {
+    const drawer = document.getElementById('mobile-drawer');
+    const burger = document.getElementById('burger-btn');
+    if (!drawer || !burger) return;
+    const open = drawer.classList.toggle('open');
+    burger.classList.toggle('active', open);
+    burger.setAttribute('aria-expanded', open);
+    burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    drawer.setAttribute('aria-hidden', !open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  document.addEventListener('keydown', function (e) {
+    const drawer = document.getElementById('mobile-drawer');
+    if (e.key === 'Escape' && drawer && drawer.classList.contains('open')) {
+      toggleMobile();
+    }
+  });
+</script>
+<script src="cart.js"></script>
+</body>
+</html>
+
+
+

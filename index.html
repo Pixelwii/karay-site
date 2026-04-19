@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karay — Votre partenaire IA, de l'idée au résultat.</title>
+  <meta name="description" content="Karay vous accompagne dans l'intégration de l'intelligence artificielle : automatisation, création de contenu, site web, SEO et accompagnement IA pour indépendants et petites entreprises." />
+  <link rel="canonical" href="https://karay.fr/" />
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://karay.fr/" />
+  <meta property="og:title"       content="Karay — Votre partenaire IA, de l'idée au résultat." />
+  <meta property="og:description" content="Karay accompagne les indépendants et petites entreprises dans l'intégration de l'IA : automatisation, site web, SEO et accompagnement." />
+  <meta property="og:image"       content="https://karay.fr/og-image.jpg" />
+  <meta name="twitter:card"       content="summary_large_image" />
+  <meta name="twitter:title"      content="Karay — Votre partenaire IA" />
+  <meta name="twitter:description" content="Automatisation, site web, SEO et accompagnement IA pour indépendants." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="karay-favicon.svg" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 3rem 4rem;
+      gap: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -150px;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,114,74,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.1s;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--terracotta);
+      border-radius: 2px;
+    }
+
+    .hero h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.25s;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--warm-gray);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.4s;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.55s;
+    }
+
+    .btn-primary {
+      background: var(--terracotta);
+      color: white;
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(196,114,74,0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--terracotta-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(196,114,74,0.4);
+    }
+
+    .btn-secondary {
+      color: var(--charcoal);
+      font-size: 0.95rem;
+      font-weight: 400;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border-bottom: 1px solid var(--charcoal);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .btn-secondary:hover {
+      color: var(--terracotta);
+      border-color: var(--terracotta);
+    }
+
+    /* Hero visual */
+    .hero-visual {
+      position: relative;
+      height: 520px;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 0.6s;
+    }
+
+    .hero-card {
+      position: absolute;
+      background: white;
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 40px rgba(44,36,32,0.1);
+    }
+
+    .hero-card-main {
+      width: 320px;
+      top: 40px;
+      left: 20px;
+      border: 1px solid var(--sand);
+    }
+
+    .hero-card-main .card-tag {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-card-main h3 {
+      font-family: 'Lora', serif;
+      font-size: 1.15rem;
+      color: var(--charcoal);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-card-main p {
+      font-size: 0.85rem;
+      color: var(--warm-gray);
+      line-height: 1.6;
+    }
+
+    .card-dots {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .card-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--sand);
+    }
+
+    .card-dot.active { background: var(--terracotta); }
+
+    .hero-card-stat {
+      width: 160px;
+      top: 280px;
+      left: 280px;
+      text-align: center;
+      background: var(--terracotta);
+      border: none;
+    }
+
+    .hero-card-stat .stat-num {
+      font-family: 'Lora', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .hero-card-stat .stat-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.8);
+      margin-top: 0.2rem;
+    }
+
+    .hero-card-small {
+      width: 200px;
+      top: 10px;
+      right: 0;
+      background: var(--sage);
+      border: none;
+      padding: 1.2rem;
+    }
+
+    .hero-card-small p {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: white;
+      line-height: 1.5;
+    }
+
+    .floating-pill {
+      position: absolute;
+      bottom: 60px;
+      left: 0;
+      background: var(--warm-white);
+      border: 1px solid var(--sand);
+      border-radius: 50px;
+      padding: 0.6rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--warm-gray);
+      box-shadow: 0 4px 20px rgba(44,36,32,0.08);
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--sage);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    /* ── BANDEAU COMPÉTENCES DÉFILANT ── */
+    .tags-section {
+      padding: 1.4rem 0 1.8rem;
+      border-top: 1px solid var(--sand);
+      border-bottom: 1px solid var(--sand);
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.8s;
+      /* dégradé de fondu sur les bords */
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+
+    .tags-label {
+      display: none; /* remplacé par le défilement continu */
+    }
+
+    /* piste de défilement */
+    .marquee-inner {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      width: max-content;
+      animation: marquee-scroll 28s linear infinite;
+    }
+    .marquee-inner:hover { animation-play-state: paused; }
+
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .tag-pill {
+      background: var(--sand);
+      color: var(--warm-gray);
+      font-size: 0.82rem;
+      padding: 0.45rem 1.1rem;
+      border-radius: 50px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background .2s, color .2s;
+    }
+    .tag-pill:hover {
+      background: var(--terracotta);
+      color: white;
+    }
+    /* séparateur décoratif entre les pills */
+    .tag-sep {
+      color: var(--sand-dark);
+      font-size: 1rem;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 5rem 3rem; }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--charcoal);
+      margin-bottom: 1.2rem;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--warm-gray);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      background: var(--warm-white);
+    }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3.5rem;
+    }
+
+    .how-step {
+      position: relative;
+      padding: 2rem;
+      background: white;
+      border-radius: 20px;
+      border: 1px solid var(--sand);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .how-step:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(44,36,32,0.1);
+    }
+
+    .step-number {
+      font-family: 'Lora', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--sand);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .step-title {
+      font-family: 'Lora', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: 0.6rem;
+    }
+
+    .step-text {
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+      line-height: 1.65;
+    }
+
+    /* ── SERVICES ── */
+    #services { background: var(--cream); }
+
+    .services-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+      margin-bottom: 3.5rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 24px;
+      padding: 2.2rem;
+      border: 1px solid var(--sand);
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--terracotta);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(44,36,32,0.1);
+      border-color: transparent;
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+      font-size: 1.4rem;
+    }
+
+    /* icon-terra / icon-terracotta / icon-sage / icon-gold / icon-charcoal
+       définis dans style.css (partagés entre toutes les pages) */
+
+    .service-title {
+      font-family: 'Lora', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: 0.6rem;
+    }
+    .service-tagline {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--terracotta);
+      margin: -0.35rem 0 0.55rem;
+      line-height: 1.45;
+    }
+
+    .service-desc {
+      font-size: 0.88rem;
+      color: var(--warm-gray);
+      line-height: 1.65;
+      margin-bottom: 1.2rem;
+    }
+
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .service-tag {
+      font-size: 0.72rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 50px;
+      background: var(--sand);
+      color: var(--warm-gray);
+      font-weight: 500;
+    }
+
+    .service-links {
+      margin-top: 0.85rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--sand);
+      font-size: 0.8rem;
+      color: var(--warm-gray);
+      line-height: 1.6;
+    }
+    .service-links a {
+      color: var(--terracotta);
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(196, 114, 74, 0.35);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .service-links a:hover {
+      color: var(--terracotta-dark);
+      border-bottom-color: var(--terracotta);
+    }
+
+    .service-details {
+      margin-top: 0.75rem;
+    }
+    .service-more-summary {
+      list-style: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.55rem 1.25rem;
+      border-radius: 50px;
+      border: 1.5px solid var(--terracotta);
+      background: transparent;
+      color: var(--terracotta);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+    }
+    .service-more-summary::-webkit-details-marker { display: none; }
+    .service-more-summary::marker { content: ''; }
+    .service-details .service-more-summary:hover {
+      background: rgba(196, 114, 74, 0.08);
+    }
+    .service-more-content {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--sand);
+    }
+    .service-more-content p {
+      font-size: 0.84rem;
+      color: var(--warm-gray);
+      line-height: 1.7;
+      margin-bottom: 0.85rem;
+    }
+    .service-more-content p:last-child { margin-bottom: 0; }
+    .service-details[open] .service-more-summary {
+      background: rgba(196, 114, 74, 0.1);
+    }
+
+    .service-card.featured .service-links {
+      border-top-color: rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.55);
+    }
+    .service-card.featured .service-links a {
+      color: var(--gold);
+      border-bottom-color: rgba(201, 169, 110, 0.45);
+    }
+    .service-card.featured .service-links a:hover {
+      color: #e8d4a8;
+      border-bottom-color: var(--gold);
+    }
+    .service-card.featured .service-details .service-more-summary {
+      border-color: rgba(201, 169, 110, 0.65);
+      color: var(--gold);
+    }
+    .service-card.featured .service-details .service-more-summary:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .service-card.featured .service-details[open] .service-more-summary {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .service-card.featured .service-more-content {
+      border-top-color: rgba(255, 255, 255, 0.12);
+    }
+    .service-card.featured .service-more-content p {
+      color: rgba(255, 255, 255, 0.72);
+    }
+    .service-card.featured .service-more-content .service-links {
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    /* Featured service card */
+    .service-card.featured {
+      background: var(--charcoal);
+      border-color: var(--charcoal);
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .service-card.featured::before { background: var(--gold); }
+    .service-card.featured .service-title { color: white; }
+    .service-card.featured .service-desc { color: rgba(255,255,255,0.65); }
+    .service-card.featured .service-tag {
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.75);
+    }
+    .service-card.featured .service-icon { background: rgba(255,255,255,0.1); }
+
+    .featured-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .featured-visual {
+      height: 180px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(196,114,74,0.3) 0%, rgba(122,158,135,0.3) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+
+    /* Bloc choix audit / appels payants */
+    .services-audit-choice {
+      grid-column: 1 / -1;
+      background: var(--warm-white);
+      border: 1px solid var(--sand);
+      border-radius: 24px;
+      padding: 2rem 1.75rem;
+      margin-top: 0.35rem;
+      text-align: center;
+    }
+    .services-audit-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.2rem, 3vw, 1.45rem);
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 0.6rem;
+    }
+    .services-audit-text {
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+      line-height: 1.65;
+      max-width: 34rem;
+      margin: 0 auto 1.35rem;
+    }
+    .services-audit-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.85rem;
+    }
+    .services-audit-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.65rem;
+      align-items: center;
+    }
+    .services-audit-row--primary {
+      gap: 0.75rem;
+    }
+    .btn-tarifs-grid {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.65rem;
+      border-radius: 50px;
+      background: var(--terracotta);
+      color: white !important;
+      font-size: 0.92rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 4px 16px rgba(196, 114, 74, 0.35);
+    }
+    .btn-tarifs-grid:hover {
+      background: var(--terracotta-dark);
+      transform: translateY(-1px);
+      color: white !important;
+    }
+    .services-audit-sub {
+      font-size: 0.82rem;
+      color: var(--warm-gray);
+      margin: 0.25rem 0 0;
+      max-width: 32rem;
+      line-height: 1.5;
+    }
+    .btn-audit-free {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.65rem;
+      border-radius: 50px;
+      background: var(--sage);
+      color: white !important;
+      font-size: 0.92rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 4px 16px rgba(122, 158, 135, 0.35);
+    }
+    .btn-audit-free:hover {
+      background: #6a8f76;
+      transform: translateY(-1px);
+      color: white !important;
+    }
+    .btn-audit-paid {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.7rem 1.25rem;
+      border-radius: 50px;
+      border: 1.5px solid var(--terracotta);
+      background: white;
+      color: var(--terracotta);
+      font-size: 0.86rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-audit-paid:hover {
+      background: var(--terracotta);
+      color: white;
+    }
+    .services-audit-note {
+      font-size: 0.75rem;
+      color: var(--light-gray);
+      line-height: 1.5;
+      max-width: 28rem;
+      margin: 0 auto;
+    }
+    .services-audit-note a { color: var(--terracotta); }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: var(--terracotta);
+      padding: 5rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .cta-band h2 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 700;
+      color: white;
+      line-height: 1.2;
+      max-width: 560px;
+    }
+
+    .cta-band h2 em {
+      font-style: italic;
+      opacity: 0.8;
+    }
+
+    .btn-light {
+      background: white;
+      color: var(--terracotta);
+      padding: 0.9rem 2.2rem;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      white-space: nowrap;
+      display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .btn-light:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+
+    /* ── TESTIMONIAL PLACEHOLDER ── */
+    .testimonial-section {
+      background: var(--warm-white);
+      text-align: center;
+      padding: 5rem 3rem;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .testimonial-card {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      border: 1px solid var(--sand);
+      text-align: left;
+    }
+
+    .testimonial-text {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--charcoal);
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+
+    .testimonial-author {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--warm-gray);
+    }
+
+    .stars {
+      color: var(--gold);
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.65);
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      font-family: 'Lora', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 0.4rem;
+    }
+
+    .footer-logo span { color: var(--terracotta-light); }
+
+    .footer-tagline {
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: white; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── MOBILE (téléphone / tablette) — espacements resserrés ── */
+    @media (max-width: 900px) {
+
+      /* Hero : plus de hauteur forcée 100vh = trop de vide sur mobile */
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        align-items: start;
+        padding: 5.25rem 1rem 0.5rem;
+        gap: 0;
+      }
+      .hero-visual { display: none; }
+      .hero-eyebrow { margin-bottom: 0.85rem; }
+      .hero h1 { margin-bottom: 0.85rem; }
+      .hero-sub { margin-bottom: 1.35rem; max-width: none; }
+      .hero-actions { gap: 0.65rem; }
+
+      .tags-section {
+        padding: 1rem 0 1.4rem;
+      }
+
+      section { padding: 2.25rem 1rem; }
+      .section-label { margin-bottom: 0.5rem; }
+      .section-title { margin-bottom: 0.65rem; font-size: clamp(1.45rem, 5vw, 2rem); }
+      .section-sub { font-size: 0.92rem; line-height: 1.6; }
+
+      .how-section .section-sub { margin-bottom: 0; }
+      .how-grid {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+        margin-top: 1.35rem;
+      }
+      .how-step { padding: 1.25rem 1.1rem; }
+      .step-number { font-size: 2.25rem; margin-bottom: 0.5rem; }
+
+      #services { padding-top: 2rem; padding-bottom: 2rem; }
+      .services-intro {
+        grid-template-columns: 1fr;
+        gap: 0.65rem;
+        margin-bottom: 1.5rem;
+      }
+      .services-grid { grid-template-columns: 1fr; gap: 0.85rem; }
+      .service-card { padding: 1.35rem 1.15rem; font-size: inherit; }
+      .service-card.featured { grid-column: span 1; grid-template-columns: 1fr; gap: 1rem; }
+      .featured-visual { display: none; }
+      .service-desc { margin-bottom: 0.85rem; }
+      .service-links { margin-top: 0.65rem; padding-top: 0.65rem; font-size: 0.78rem; }
+
+      .services-audit-choice { padding: 1.35rem 1rem; }
+      .services-audit-row { flex-direction: column; width: 100%; }
+      .btn-audit-free,
+      .btn-tarifs-grid,
+      .btn-audit-paid { width: 100%; max-width: 18rem; justify-content: center; }
+
+      .cta-band {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 2rem 1rem;
+        gap: 1rem;
+      }
+      .cta-band h2 { font-size: clamp(1.35rem, 4.5vw, 1.85rem); max-width: none; }
+      .btn-light { padding: 0.75rem 1.5rem; font-size: 0.9rem; }
+
+      .testimonial-section { padding: 2.25rem 1rem; }
+      .testimonial-grid { grid-template-columns: 1fr; gap: 0.85rem; margin-top: 1.35rem; }
+      .testimonial-card { padding: 1.25rem 1.1rem; }
+      .testimonial-text { margin-bottom: 0.85rem; font-size: 0.9rem; }
+
+      #contact { padding: 2.25rem 1rem !important; }
+      .contact-blurb { margin-bottom: 1.25rem !important; }
+      .contact-fields-row { grid-template-columns: 1fr !important; gap: 0.65rem !important; }
+
+      footer { grid-template-columns: 1fr; text-align: center; padding: 1.75rem 1rem; gap: 1rem; }
+      .footer-links { justify-content: center; flex-wrap: wrap; gap: 0.65rem 1rem; }
+      .footer-links a { font-size: 0.8rem; }
+
+      .mobile-menu { top: 4.5rem; right: 0.75rem; left: 0.75rem; max-width: none; }
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 5rem 0.85rem 0.35rem; }
+      section { padding: 1.85rem 0.85rem; }
+      .btn-primary { padding: 0.75rem 1.35rem; font-size: 0.9rem; }
+      .tags-section { padding: 0.8rem 0; }
+      .cta-band { padding: 1.65rem 0.85rem; }
+      .testimonial-section { padding: 1.85rem 0.85rem; }
+      #contact { padding: 1.85rem 0.85rem !important; }
+      footer { padding: 1.5rem 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a class="nav-logo" href="index.html" style="display:flex;align-items:center;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 80" height="36" style="display:block;">
+        <polygon points="36,2 66,18 66,52 36,68 6,52 6,18" fill="none" stroke="#C4724A" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M20,18 L20,52" stroke="#C4724A" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <path d="M20,28 Q34,20 46,14" stroke="#C4724A" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <path d="M20,36 Q34,44 48,52" stroke="#7A9E87" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <circle cx="60" cy="14" r="5" fill="#C9A96E"/>
+        <circle cx="36" cy="35" r="3" fill="#7A9E87" opacity="0.45"/>
+        <text x="84" y="47" font-family="'Lora', Georgia, serif" font-size="36" font-weight="700" font-style="italic" fill="#2C2420" letter-spacing="-1">Karay</text>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="tarifs.html">Tarifs</a></li>
+      <li><a href="#comment">Comment ça marche</a></li>
+      <li><a href="documents.html">Ressources</a></li>
+      <li><a href="audit.html" class="nav-cta">Audit gratuit →</a></li>
+    </ul>
+    <a href="panier.html" class="nav-cart" aria-label="Voir le panier">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span class="cart-badge">0</span>
+    </a>
+    <button type="button" class="burger" id="burger-btn" onclick="toggleMobile()" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-drawer">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE : voile + panneau (pas plein écran) -->
+  <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <div class="mobile-menu-backdrop" onclick="toggleMobile()" aria-hidden="true"></div>
+    <ul class="mobile-menu" id="mobile-menu" role="menu">
+      <li><a href="#services" role="menuitem" onclick="toggleMobile()">Services</a></li>
+      <li><a href="tarifs.html" role="menuitem" onclick="toggleMobile()">Tarifs</a></li>
+      <li><a href="#comment" role="menuitem" onclick="toggleMobile()">Comment ça marche</a></li>
+      <li><a href="documents.html" role="menuitem" onclick="toggleMobile()">Ressources</a></li>
+      <li><a href="#temoignages" role="menuitem" onclick="toggleMobile()">Témoignages</a></li>
+      <li><a href="audit.html" class="nav-cta" role="menuitem" onclick="toggleMobile()">Audit gratuit →</a></li>
+    </ul>
+  </div>
+
+  <main id="main-content" tabindex="-1">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Intelligence Artificielle · Pour tous</p>
+      <h1>Votre partenaire IA,<br /><em>de l'idée</em><br />au résultat.</h1>
+      <p class="hero-sub">Karay accompagne les particuliers et les petites entreprises dans l'intégration de l'IA — prompting, automatisation, web design, SEO et identité visuelle.</p>
+      <div class="hero-actions">
+        <a href="audit.html" class="btn-primary">Demander un audit gratuit →</a>
+        <a href="#services" class="btn-secondary">Voir les services</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card hero-card-main">
+        <p class="card-tag">✦ Automatisation active</p>
+        <h3>Flux de travail IA en cours…</h3>
+        <p>Qualification de prospects → CRM → Email de bienvenue → Tableau de bord</p>
+        <div class="card-dots">
+          <div class="card-dot active"></div>
+          <div class="card-dot active"></div>
+          <div class="card-dot active"></div>
+          <div class="card-dot"></div>
+        </div>
+      </div>
+
+      <div class="hero-card hero-card-small">
+        <p>"L'IA n'est plus réservée aux grandes entreprises."</p>
+      </div>
+
+      <div class="hero-card hero-card-stat">
+        <div class="stat-num">×5</div>
+        <div class="stat-label">Productivité gagnée constatée chez nos clients</div>
+      </div>
+
+      <div class="floating-pill">
+        <span class="pill-dot"></span>
+        Disponible pour nouveaux clients
+      </div>
+    </div>
+  </section>
+
+  <!-- BANDEAU COMPÉTENCES DÉFILANT -->
+  <div class="tags-section" aria-label="Compétences Karay">
+    <!-- piste dupliquée ×2 pour le défilement infini sans saut -->
+    <div class="marquee-inner" aria-hidden="true">
+      <span class="tag-pill">Prompting avancé</span>
+      <span class="tag-sep">✦</span>
+      <span class="tag-pill">Automatisation (Make · n8n)</span>
+      <span class="tag-sep">✦</span>
+      <span class="tag-pill">Création site web</span>
+      <span class="tag-sep">✦</span>
+      <span class="tag-pill">SEO IA</span>
+      <span class="tag-sep">✦</span>
+      <span class="tag-pill">Création de logo</span>
+      <span class="tag-sep">✦</span>
+      <span class="tag-pill">ChatGPT · Claude · Gemini</span>
+      <span class="tag-sep">✦</span>
+      <span class="tag-pill">Contenu automatisé</span>
+      <span class="tag-sep">✦</span>
+      <span class="tag-pill">Agents IA (RAG)</span>
+      <span class="tag-sep">✦</span>
+      <span class="tag-pill">Identité visuelle</span>
+      <span class="tag-sep">✦</span>
+      <span class="tag-pill">Formation IA personnalisée</span>
+      <span class="tag-sep">✦</span>
+      <!-- copie exacte pour le raccord sans saut -->
+      <span class="tag-pill">Prompting avancé</span>
+      <span class="tag-sep">✦</span>
+      <span class="tag-pill">Automatisation (Make · n8n)</span>
+      <span class="tag-sep">✦</span>
+      <span class="tag-pill">Création site web</span>
+      <span class="tag-sep">✦</span>
+      <span class="tag-pill">SEO IA</span>
+      <span class="tag-sep">✦</span>
+      <span class="tag-pill">Création de logo</span>
+      <span class="tag-sep">✦</span>
+      <span class="tag-pill">ChatGPT · Claude · Gemini</span>
+      <span class="tag-sep">✦</span>
+      <span class="tag-pill">Contenu automatisé</span>
+      <span class="tag-sep">✦</span>
+      <span class="tag-pill">Agents IA (RAG)</span>
+      <span class="tag-sep">✦</span>
+      <span class="tag-pill">Identité visuelle</span>
+      <span class="tag-sep">✦</span>
+      <span class="tag-pill">Formation IA personnalisée</span>
+      <span class="tag-sep">✦</span>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section" id="comment">
+    <p class="section-label reveal">Processus</p>
+    <h2 class="section-title reveal">Comment on travaille ensemble</h2>
+    <p class="section-sub reveal">Un accompagnement humain, structuré en 3 étapes claires — du diagnostic à la mise en œuvre.</p>
+
+    <div class="how-grid">
+      <div class="how-step reveal">
+        <div class="step-number">01</div>
+        <div class="step-title">Audit & diagnostic</div>
+        <p class="step-text">On commence par comprendre votre activité, vos outils actuels et vos objectifs. Un questionnaire personnalisé guide ce premier échange — offert et sans engagement.</p>
+      </div>
+      <div class="how-step reveal">
+        <div class="step-number">02</div>
+        <div class="step-title">Stratégie sur mesure</div>
+        <p class="step-text">Je vous propose un plan clair : quels outils IA utiliser, comment les intégrer, et dans quel ordre — selon votre budget et votre rythme.</p>
+      </div>
+      <div class="how-step reveal">
+        <div class="step-number">03</div>
+        <div class="step-title">Mise en œuvre & suivi</div>
+        <p class="step-text">J'implémente les solutions avec vous ou pour vous, avec documentation et accompagnement à la prise en main inclus. Vous gagnez en autonomie, pas en dépendance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="services-intro">
+      <div>
+        <p class="section-label reveal">Services</p>
+        <h2 class="section-title reveal">Ce que je fais pour vous</h2>
+      </div>
+      <p class="section-sub reveal">Des services concrets pour indépendants et petites structures. Chaque offre est pensée pour générer un résultat visible rapidement, sans complexité inutile. Ouvrez <strong>En savoir plus</strong> pour voir ce qui est inclus, puis accédez aux ressources gratuites et aux tarifs en fin de bloc.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <!-- Featured : créateur de contenu prêt à l'emploi -->
+      <div class="service-card featured reveal">
+        <div>
+          <span class="featured-badge">✦ Prêt à l'emploi</span>
+          <div class="service-icon icon-terracotta">✨</div>
+          <div class="service-title">Automatisation IA — Créateur de contenu</div>
+          <p class="service-desc">Offre prête à déployer : calendrier éditorial, prompts et workflows pour publier plus régulièrement sur vos canaux (réseaux, blog, emailing).</p>
+          <div class="service-tags">
+            <span class="service-tag">Calendrier & idées IA</span>
+            <span class="service-tag">Make · n8n</span>
+            <span class="service-tag">Notion / Airtable</span>
+            <span class="service-tag">API réseaux & CMS</span>
+            <span class="service-tag">Prompting contenu</span>
+          </div>
+          <details class="service-details">
+            <summary class="service-more-summary">En savoir plus</summary>
+            <div class="service-more-content">
+              <p>Nous partons de votre ligne éditoriale et de vos canaux (réseaux, blog, newsletter). Je définis avec vous un calendrier réaliste, des prompts adaptés à votre ton de marque, puis des workflows (Make ou n8n) reliés à Notion ou Airtable pour stocker brouillons, statuts et assets. Les publications peuvent être planifiées ou poussées vers les API des réseaux, votre CMS ou votre outil d’emailing — avec des garde-fous (relecture, validation) selon votre niveau de confort.</p>
+              <p>Le livrable inclut la documentation des scénarios, les accès nécessaires et une courte prise en main pour ajuster les créneaux ou les modèles de posts. Idéal si vous produisez régulièrement du contenu et voulez réduire le temps passé sur la répétition sans perdre le contrôle éditorial.</p>
+              <p class="service-links"><a href="documents.html">Ressources gratuites</a> (guides, prompts, fiches) · <a href="tarifs.html#tarifs-complets">Tarifs</a> · Besoin d’un avis avant engagement ? <a href="#choix-audit">Audit gratuit et consultations</a> en bas de section.</p>
+            </div>
+          </details>
+        </div>
+        <div class="featured-visual">📝</div>
+      </div>
+
+      <!-- Automatisation sur mesure -->
+      <div class="service-card reveal">
+        <div class="service-icon icon-terracotta">⚡</div>
+        <div class="service-title">Automatisation sur mesure</div>
+        <p class="service-desc">Des automatisations sur mesure pour votre activité : emails, leads, rapports et connexions entre vos outils pour gagner du temps chaque semaine.</p>
+        <div class="service-tags">
+          <span class="service-tag">Make (Integromat)</span>
+          <span class="service-tag">n8n</span>
+          <span class="service-tag">Zapier</span>
+          <span class="service-tag">ChatGPT API</span>
+          <span class="service-tag">Prompting expert</span>
+        </div>
+        <details class="service-details">
+          <summary class="service-more-summary">En savoir plus</summary>
+          <div class="service-more-content">
+            <p>On cartographie d’abord vos tâches répétitives : saisie CRM, relances, exports tableurs, notifications, rapports récurrents. Je conçois ensuite des scénarios sur Make, n8n ou Zapier, avec des prompts structurés lorsque l’IA doit classer, résumer ou générer du texte (y compris via l’API ChatGPT si besoin).</p>
+            <p>Les flux sont testés sur des cas réels, sécurisés au niveau des accès (OAuth, clés), et documentés pour que vous ou votre équipe puissiez les faire évoluer. Un accompagnement court vous permet de déclencher des scénarios manuellement ou de surveiller les erreurs sans dépendre d’un développeur au quotidien.</p>
+            <p class="service-links"><a href="documents.html">Ressources gratuites</a> · <a href="tarifs.html#tarifs-complets">Tarifs</a></p>
+          </div>
+        </details>
+      </div>
+
+      <!-- Création site web -->
+      <div class="service-card reveal">
+        <div class="service-icon icon-sage">🌐</div>
+        <div class="service-title">Création site web</div>
+        <p class="service-desc">Un site professionnel clair et crédible, conçu avec l’IA : design, contenus, structure et base évolutive pour vos futures automatisations. Landing page, site vitrine ou e-commerce selon votre projet.</p>
+        <div class="service-tags">
+          <span class="service-tag">HTML/CSS</span>
+          <span class="service-tag">Hostinger</span>
+          <span class="service-tag">Framer</span>
+          <span class="service-tag">WordPress IA</span>
+        </div>
+        <details class="service-details">
+          <summary class="service-more-summary">En savoir plus</summary>
+          <div class="service-more-content">
+            <p>Le projet commence par un brief : objectifs, public, pages nécessaires, ton visuel. Comme pour l’automatisation créateur de contenu, on définit des prompts et une ligne éditoriale cohérente ; on prévoit les zones utiles (blog, newsletter, liens réseaux) et une structure qui pourra se connecter plus tard à des outils comme Notion, Airtable ou des scénarios Make / n8n si vous automatisez vos publications.</p>
+            <p>Le site est responsive, pensé pour la performance et une base SEO technique saine. L’hébergement et le nom de domaine sont pris en charge selon la formule, avec mise en ligne et tests multi-navigateurs. Vous recevez un court accompagnement pour prendre en main textes et images, plus une période de support après livraison pour les ajustements indispensables.</p>
+            <p class="service-links"><a href="documents.html">Ressources gratuites</a> · <a href="tarifs.html#tarifs-complets">Tarifs</a></p>
+          </div>
+        </details>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="service-card reveal">
+        <div class="service-icon icon-gold">📈</div>
+        <div class="service-title">SEO propulsé par l'IA</div>
+        <p class="service-desc">Gagnez en visibilité sur Google avec une méthode SEO pilotée par l’IA : mots-clés, contenus, technique et suivi de performance.</p>
+        <div class="service-tags">
+          <span class="service-tag">Recherche de mots-clés</span>
+          <span class="service-tag">Contenu IA</span>
+          <span class="service-tag">Schema markup</span>
+          <span class="service-tag">Google Search Console</span>
+        </div>
+        <details class="service-details">
+          <summary class="service-more-summary">En savoir plus</summary>
+          <div class="service-more-content">
+            <p>L’accompagnement couvre la recherche d’intentions et de requêtes pertinentes pour votre secteur, la définition d’un plan de contenus (pages ou articles), puis la rédaction assistée par l’IA suivie d’une relecture orientée SEO (titres, méta, structure).</p>
+            <p>Nous travaillons le maillage interne, les données structurées utiles (schema), et la configuration de la Google Search Console pour suivre impressions et clics. Un reporting simple vous permet de voir l’évolution dans le temps et d’ajuster les priorités.</p>
+            <p class="service-links"><a href="documents.html">Ressources gratuites</a> · <a href="tarifs.html#tarifs-complets">Tarifs</a></p>
+          </div>
+        </details>
+      </div>
+
+      <!-- Accompagnement IA -->
+      <div class="service-card reveal">
+        <div class="service-icon icon-charcoal">🎓</div>
+        <div class="service-title">Accompagnement IA</div>
+        <p class="service-tagline">Formation sur mesure selon vos besoins</p>
+        <p class="service-desc">Un accompagnement concret pour mieux exploiter ChatGPT, Claude et Gemini dans votre activité : prompting, méthodes et cas réels.</p>
+        <div class="service-tags">
+          <span class="service-tag">ChatGPT · Claude · Gemini</span>
+          <span class="service-tag">Prompting avancé</span>
+          <span class="service-tag">Exercices sur vos fichiers</span>
+          <span class="service-tag">Suivi post-accompagnement</span>
+        </div>
+        <details class="service-details">
+          <summary class="service-more-summary">En savoir plus</summary>
+          <div class="service-more-content">
+            <p>L’accompagnement commence par un court cadrage : votre métier, vos outils, ce que vous voulez gagner en temps ou en qualité (rédaction, analyse, idées, structuration). Nous utilisons ChatGPT, Claude et/ou Gemini avec des méthodes de prompting claires : rôles, contexte, contraintes, formats de sortie.</p>
+            <p>Vous travaillez sur vos propres fichiers ou cas réels (dans le respect de la confidentialité). Le forfait inclut une <strong>session d’appel de 3 h</strong> pour avancer ensemble en direct ; un guide PDF récapitulatif vous est remis pour ancrer les habitudes. Format individuel ou petit groupe selon la formule.</p>
+            <p class="service-links"><a href="documents.html">Ressources gratuites</a> · <a href="tarifs.html#tarifs-complets">Tarifs</a></p>
+          </div>
+        </details>
+      </div>
+
+      <!-- Chatbot IA / Agent RAG -->
+      <div class="service-card reveal">
+        <div class="service-icon icon-terracotta">🤖</div>
+        <div class="service-title">Chatbot IA / Agent RAG</div>
+        <p class="service-tagline">Connecté à vos données, disponible 24h/24</p>
+        <p class="service-desc">Un agent IA qui répond aux questions de vos clients ou collaborateurs en s’appuyant sur vos documents, FAQ et bases de connaissance. Intégrable sur votre site ou outil interne.</p>
+        <div class="service-tags">
+          <span class="service-tag">RAG / LLM</span>
+          <span class="service-tag">PDF · Notion · Web</span>
+          <span class="service-tag">Widget chat intégrable</span>
+          <span class="service-tag">API OpenAI / Mistral</span>
+        </div>
+        <details class="service-details">
+          <summary class="service-more-summary">En savoir plus</summary>
+          <div class="service-more-content">
+            <p>Le chatbot RAG (Retrieval-Augmented Generation) va au-delà d’un assistant générique : il ingère <em>vos</em> contenus (PDF internes, documentation, site web, Notion…) et les utilise pour répondre avec précision aux questions de vos utilisateurs. Plus de réponses hors sujet ou inventées.</p>
+            <p>Je prends en charge l’intégralité du projet : architecture RAG, choix du modèle (OpenAI, Mistral, Claude…), indexation de vos données, tests qualité et intégration d’un widget chat sur votre site ou outil interne. Option maintenance mensuelle à 99 €/mois incluse si besoin.</p>
+            <p class="service-links"><a href="documents.html">Ressources gratuites</a> · <a href="tarifs.html#tarifs-complets">Tarifs</a> · <a href="audit.html">Demander un devis</a></p>
+          </div>
+        </details>
+      </div>
+
+      <!-- Choix audit : gratuit, grille tarifaire, consultations -->
+      <div class="services-audit-choice reveal" id="choix-audit">
+        <p class="services-audit-title">Vous ne savez pas quoi choisir ?</p>
+        <p class="services-audit-text">Passez par l'audit en ligne gratuit, ou consultez la <strong>grille tarifaire complète</strong> (toutes nos prestations et les consultations visio). Les consultations payantes permettent un échange individuel cadré avant de vous engager sur un projet.</p>
+        <div class="services-audit-actions">
+          <div class="services-audit-row services-audit-row--primary">
+            <a href="audit.html" class="btn-audit-free">Audit gratuit en ligne →</a>
+            <a href="tarifs.html#tarifs-complets" class="btn-tarifs-grid">Voir tous les tarifs →</a>
+          </div>
+          <p class="services-audit-sub">Consultations professionnelles (visio) — réservation après paiement sécurisé :</p>
+          <div class="services-audit-row">
+            <a href="https://buy.stripe.com/VOTRE_LIEN_APPEL_30MIN" class="btn-audit-paid" target="_blank" rel="noopener">Consultation express — 30 min · 29,99&nbsp;€ TTC</a>
+            <a href="https://buy.stripe.com/VOTRE_LIEN_APPEL_1H" class="btn-audit-paid" target="_blank" rel="noopener">Consultation stratégique — 1 h · 44,99&nbsp;€ TTC</a>
+          </div>
+        </div>
+        <p class="services-audit-note">Détail des 5 accompagnements et des montants : page <a href="tarifs.html#tarifs-complets">Tarifs</a> · Paiement Stripe · <a href="cgv.html">CGV</a></p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <div class="cta-band">
+    <h2>Prêt à transformer votre façon de travailler<br /><em>avec l'intelligence artificielle ?</em></h2>
+    <a href="audit.html" class="btn-light">Démarrer l'audit gratuit →</a>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonial-section" id="temoignages">
+    <p class="section-label reveal" style="text-align:center">Témoignages</p>
+    <h2 class="section-title reveal" style="margin:0 auto 0.5rem">Ce que disent nos clients</h2>
+    <p class="section-sub reveal" style="margin: 0 auto">Des retours concrets de personnes et d'entreprises qui ont franchi le pas.</p>
+
+    <div class="testimonial-grid">
+      <div class="testimonial-card reveal">
+        <div class="stars" aria-label="5 étoiles sur 5" role="img">★★★★★</div>
+        <p class="testimonial-text">"Grâce à Karay, j'ai pu automatiser la gestion de mes leads en quelques jours. Le temps gagné me permet de mieux servir mes clients."</p>
+        <div class="testimonial-author">— Sophie M., consultante indépendante</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars" aria-label="5 étoiles sur 5" role="img">★★★★★</div>
+        <p class="testimonial-text">"Le site qu'on a conçu ensemble avec l'IA correspond exactement à mes attentes — professionnel, rapide, et surtout je sais le gérer en autonomie."</p>
+        <div class="testimonial-author">— Rachid B., artisan</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars" aria-label="5 étoiles sur 5" role="img">★★★★★</div>
+        <p class="testimonial-text">"L'accompagnement SEO IA a significativement augmenté notre visibilité en ligne. Des conseils concrets, sans jargon inutile."</p>
+        <div class="testimonial-author">— Clara V., gérante de boutique en ligne</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / AUDIT -->
+  <section id="contact" style="background: var(--warm-white);">
+    <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+      <p class="section-label reveal">Audit gratuit</p>
+      <h2 class="section-title reveal">Commençons par vous connaître</h2>
+      <p class="section-sub reveal contact-blurb" style="margin: 0 auto 2.5rem;">Remplissez ce formulaire court. Je vous réponds sous 24h avec une analyse personnalisée et des premières recommandations.</p>
+
+      <form id="contact-form" action="https://formspree.io/f/VOTRE_ID_FORMSPREE" method="POST" style="display:grid; gap:1rem; text-align:left;" onsubmit="handleSubmit(event)">
+        <div class="contact-fields-row" style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+          <div>
+            <label style="font-size:0.82rem; color:var(--warm-gray); display:block; margin-bottom:0.4rem;">Prénom *</label>
+            <input type="text" name="prenom" required placeholder="Votre prénom" style="width:100%; padding:0.8rem 1rem; border:1px solid var(--sand); border-radius:12px; font-family:'DM Sans',sans-serif; font-size:0.9rem; background:white; outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--terracotta)'" onblur="this.style.borderColor='var(--sand)'" />
+          </div>
+          <div>
+            <label style="font-size:0.82rem; color:var(--warm-gray); display:block; margin-bottom:0.4rem;">Email *</label>
+            <input type="email" name="email" required placeholder="votre@email.com" style="width:100%; padding:0.8rem 1rem; border:1px solid var(--sand); border-radius:12px; font-family:'DM Sans',sans-serif; font-size:0.9rem; background:white; outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--terracotta)'" onblur="this.style.borderColor='var(--sand)'" />
+          </div>
+        </div>
+        <div>
+          <label style="font-size:0.82rem; color:var(--warm-gray); display:block; margin-bottom:0.4rem;">Vous êtes… *</label>
+          <select name="profil" required style="width:100%; padding:0.8rem 1rem; border:1px solid var(--sand); border-radius:12px; font-family:'DM Sans',sans-serif; font-size:0.9rem; background:white; color:var(--charcoal); outline:none;">
+            <option value="">Sélectionnez votre profil</option>
+            <option>Particulier / Freelance</option>
+            <option>Petite entreprise (1–10 personnes)</option>
+            <option>PME (10–50 personnes)</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:0.82rem; color:var(--warm-gray); display:block; margin-bottom:0.4rem;">Quel est votre principal besoin ?</label>
+          <textarea name="besoin" rows="4" placeholder="Décrivez brièvement votre situation actuelle et ce que vous aimeriez améliorer…" style="width:100%; padding:0.8rem 1rem; border:1px solid var(--sand); border-radius:12px; font-family:'DM Sans',sans-serif; font-size:0.9rem; background:white; outline:none; resize:vertical; transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--terracotta)'" onblur="this.style.borderColor='var(--sand)'"></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="justify-content:center; border:none; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.95rem;">
+          Envoyer ma demande d'audit →
+        </button>
+        <p style="font-size:0.78rem; color:var(--light-gray); text-align:center;">100% gratuit · Sans engagement · Réponse sous 24h</p>
+      </form>
+    </div>
+  </section>
+
+  </main><!-- /main-content -->
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div class="footer-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 80" height="32" style="display:block;">
+          <polygon points="36,2 66,18 66,52 36,68 6,52 6,18" fill="none" stroke="#D98B62" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M20,18 L20,52" stroke="#D98B62" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <path d="M20,28 Q34,20 46,14" stroke="#D98B62" stroke-width="5" stroke-linecap="round" fill="none"/>
+          <path d="M20,36 Q34,44 48,52" stroke="#A8C4B0" stroke-width="5" stroke-linecap="round" fill="none"/>
+          <circle cx="60" cy="14" r="5" fill="#C9A96E"/>
+          <text x="84" y="47" font-family="'Lora', Georgia, serif" font-size="36" font-weight="700" font-style="italic" fill="white" letter-spacing="-1">Karay</text>
+        </svg>
+      </div>
+      <div class="footer-tagline">Votre partenaire IA, de l'idée au résultat.</div>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="tarifs.html">Tarifs</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="documents.html">Ressources</a></li>
+      <li><a href="mentions-legales.html">Mentions légales</a></li>
+      <li><a href="politique-confidentialite.html">Confidentialité</a></li>
+      <li><a href="cgv.html">CGV</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Nav shadow on scroll
+    window.addEventListener('scroll', () => {
+      document.querySelector('nav').style.boxShadow =
+        window.scrollY > 20 ? '0 4px 30px rgba(44,36,32,0.08)' : 'none';
+    });
+
+    // Form submit
+    function handleSubmit(e) {
+      e.preventDefault();
+      const form = document.getElementById('contact-form');
+      const btn = form.querySelector('button[type="submit"]');
+      btn.textContent = 'Envoi en cours…';
+      btn.disabled = true;
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(r => {
+        if (r.ok) {
+          btn.textContent = '✓ Demande envoyée — à bientôt !';
+          btn.style.background = 'var(--sage)';
+          form.reset();
+        } else {
+          /* FIX: était aussi "envoyé" sur erreur HTTP — on affiche maintenant la vraie erreur */
+          btn.textContent = 'Une erreur est survenue — réessayez';
+          btn.style.background = 'var(--terracotta-dark)';
+          btn.disabled = false;
+        }
+      }).catch(() => {
+        /* FIX: était aussi "envoyé" sur erreur réseau */
+        btn.textContent = 'Erreur réseau — vérifiez votre connexion';
+        btn.style.background = 'var(--terracotta-dark)';
+        btn.disabled = false;
+      });
+    }
+
+    // Mobile menu (panneau + burger → croix)
+    function toggleMobile() {
+      const drawer = document.getElementById('mobile-drawer');
+      const burger = document.getElementById('burger-btn');
+      const open = drawer.classList.toggle('open');
+      burger.classList.toggle('active', open);
+      burger.setAttribute('aria-expanded', open);
+      burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+      drawer.setAttribute('aria-hidden', !open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && document.getElementById('mobile-drawer').classList.contains('open')) {
+        toggleMobile();
+      }
+    });
+  </script>
+  <script src="cart.js"></script>
+</body>
+</html>

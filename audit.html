@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Audit IA Gratuit &mdash; Karay</title>
+  <meta name="description" content="&Eacute;valuez votre potentiel IA en 3 minutes. Karay analyse votre situation et vous propose les solutions adapt&eacute;es."/>
+  <link rel="icon" type="image/svg+xml" href="karay-favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+
+    /* HERO AUDIT */
+    .audit-hero {
+      padding: 7rem 2rem 3rem;
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .audit-hero .eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--terracotta);
+      margin-bottom: 1rem;
+    }
+    .audit-hero h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;
+      color: var(--charcoal); margin-bottom: 1rem;
+    }
+    .audit-hero h1 em { font-style: italic; color: var(--terracotta); }
+    .audit-hero p {
+      font-size: 1rem; font-weight: 300; color: var(--warm-gray);
+      line-height: 1.7; margin-bottom: 2rem;
+    }
+
+    /* PROGRESS */
+    .progress-wrap {
+      max-width: 680px; margin: 0 auto 2rem;
+      padding: 0 2rem;
+    }
+    .progress-meta {
+      display: flex; justify-content: space-between;
+      font-size: 0.78rem; color: var(--warm-gray); margin-bottom: 0.6rem;
+    }
+    .progress-bar {
+      height: 4px; background: var(--sand);
+      border-radius: 4px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; background: var(--terracotta);
+      border-radius: 4px;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+
+    /* STEP CONTAINER */
+    .steps-container {
+      max-width: 680px; margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+
+    .step {
+      display: none;
+      animation: stepIn 0.35s ease forwards;
+    }
+    .step.active { display: block; }
+
+    @keyframes stepIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* QUESTION CARD */
+    .q-card {
+      background: white;
+      border-radius: 24px;
+      padding: 2.2rem;
+      border: 1px solid var(--sand);
+      margin-bottom: 1.5rem;
+    }
+
+    .q-number {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--terracotta);
+      margin-bottom: 0.6rem;
+    }
+
+    .q-title {
+      font-family: 'Lora', serif;
+      font-size: 1.15rem; font-weight: 600;
+      color: var(--charcoal); line-height: 1.4;
+      margin-bottom: 0.4rem;
+    }
+
+    .q-hint {
+      font-size: 0.82rem; color: var(--light-gray);
+      margin-bottom: 1.4rem; line-height: 1.5;
+    }
+
+    /* OPTIONS */
+    .options { display: grid; gap: 0.7rem; }
+    .options.cols-2 { grid-template-columns: 1fr 1fr; }
+
+    .opt {
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      padding: 0.9rem 1.1rem;
+      border: 1.5px solid var(--sand);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      background: var(--cream);
+      user-select: none;
+    }
+    .opt:hover {
+      border-color: var(--terracotta-light);
+      background: rgba(196,114,74,0.04);
+      transform: translateY(-1px);
+    }
+    .opt.selected {
+      border-color: var(--terracotta);
+      background: rgba(196,114,74,0.07);
+    }
+    .opt-check {
+      width: 18px; height: 18px; min-width: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--sand-dark);
+      margin-top: 1px;
+      transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .opt.selected .opt-check {
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+    }
+    .opt.selected .opt-check::after {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: white;
+      display: block;
+    }
+    .opt-multi .opt-check { border-radius: 5px; }
+    .opt-multi.selected .opt-check::after {
+      content: '\2713';
+      font-size: 11px; color: white;
+      border-radius: 0; background: transparent;
+      width: auto; height: auto;
+    }
+    .opt-label { font-size: 0.9rem; color: var(--charcoal); line-height: 1.4; }
+    .opt-sub { font-size: 0.75rem; color: var(--warm-gray); margin-top: 0.15rem; }
+
+    /* SCALE / SLIDER */
+    .scale-wrap { display: flex; flex-direction: column; gap: 0.5rem; }
+    .scale-opts { display: flex; gap: 0.5rem; justify-content: space-between; }
+    .scale-opt {
+      flex: 1; text-align: center; padding: 0.7rem 0.3rem;
+      border: 1.5px solid var(--sand); border-radius: 12px;
+      cursor: pointer; font-size: 0.85rem; color: var(--warm-gray);
+      transition: all 0.2s; background: var(--cream);
+    }
+    .scale-opt:hover { border-color: var(--terracotta-light); }
+    .scale-opt.selected {
+      border-color: var(--terracotta);
+      background: rgba(196,114,74,0.08);
+      color: var(--charcoal); font-weight: 500;
+    }
+    .scale-labels {
+      display: flex; justify-content: space-between;
+      font-size: 0.72rem; color: var(--light-gray);
+    }
+
+    /* TEXT INPUT */
+    .q-input {
+      width: 100%; padding: 0.85rem 1rem;
+      border: 1.5px solid var(--sand); border-radius: 14px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      background: var(--cream); color: var(--charcoal);
+      outline: none; transition: border-color 0.2s;
+      resize: vertical;
+    }
+    .q-input:focus { border-color: var(--terracotta); }
+
+    /* CONDITIONAL reveal */
+    .conditional { display: none; margin-top: 1rem; }
+    .conditional.show { display: block; }
+
+    /* NAV BUTTONS */
+    .step-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 0.5rem;
+    }
+    .btn-prev {
+      background: none; border: 1.5px solid var(--sand);
+      color: var(--warm-gray); padding: 0.75rem 1.6rem;
+      border-radius: 50px; font-size: 0.9rem; font-weight: 400;
+      cursor: pointer; font-family: 'DM Sans', sans-serif;
+      transition: all 0.2s;
+    }
+    .btn-prev:hover { border-color: var(--warm-gray); color: var(--charcoal); }
+    .btn-next {
+      background: var(--terracotta); color: white;
+      border: none; padding: 0.75rem 2rem;
+      border-radius: 50px; font-size: 0.9rem; font-weight: 500;
+      cursor: pointer; font-family: 'DM Sans', sans-serif;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(196,114,74,0.3);
+    }
+    .btn-next:hover {
+      background: var(--terracotta-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(196,114,74,0.4);
+    }
+    .btn-next:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    /* RESULTS */
+    #results { display: none; max-width: 680px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+    .score-card {
+      background: white; border-radius: 24px;
+      padding: 2.5rem; border: 1px solid var(--sand);
+      text-align: center; margin-bottom: 1.5rem;
+    }
+    .score-label {
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.8rem;
+    }
+    .score-title {
+      font-family: 'Lora', serif; font-size: 1.8rem; font-weight: 700;
+      color: var(--charcoal); margin-bottom: 0.5rem;
+    }
+    .score-sub {
+      font-size: 0.95rem; color: var(--warm-gray); line-height: 1.6;
+      max-width: 460px; margin: 0 auto 1.5rem;
+    }
+    .score-meter {
+      max-width: 320px; margin: 0 auto;
+    }
+    .meter-track {
+      height: 10px; background: var(--sand);
+      border-radius: 10px; overflow: hidden; margin-bottom: 0.5rem;
+    }
+    .meter-fill {
+      height: 100%; border-radius: 10px;
+      background: var(--terracotta);
+      transition: width 1s ease;
+    }
+    .meter-labels {
+      display: flex; justify-content: space-between;
+      font-size: 0.72rem; color: var(--light-gray);
+    }
+
+    /* INSIGHTS */
+    .insights {
+      display: grid; gap: 1rem; margin-bottom: 1.5rem;
+    }
+    .insight-card {
+      background: white; border-radius: 18px;
+      padding: 1.5rem; border: 1px solid var(--sand);
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .insight-icon {
+      width: 40px; height: 40px; min-width: 40px;
+      border-radius: 12px; display: flex; align-items: center;
+      justify-content: center; font-size: 1.1rem;
+    }
+    .insight-icon.green { background: rgba(122,158,135,0.15); }
+    .insight-icon.orange { background: rgba(196,114,74,0.12); }
+    .insight-icon.gold { background: rgba(201,169,110,0.15); }
+    .insight-body h4 {
+      font-family: 'Lora', serif; font-size: 1rem; font-weight: 600;
+      color: var(--charcoal); margin-bottom: 0.3rem;
+    }
+    .insight-body p { font-size: 0.85rem; color: var(--warm-gray); line-height: 1.6; }
+
+    /* OFFERS */
+    .offers-title {
+      font-family: 'Lora', serif; font-size: 1.3rem; font-weight: 700;
+      color: var(--charcoal); margin-bottom: 1rem; text-align: center;
+    }
+    .offers { display: grid; gap: 1rem; margin-bottom: 1.5rem; }
+    .offer-card {
+      background: white; border-radius: 20px;
+      padding: 1.8rem; border: 1.5px solid var(--sand);
+      transition: all 0.2s; cursor: default;
+      position: relative; overflow: hidden;
+    }
+    .offer-card.featured {
+      border-color: var(--terracotta);
+      background: rgba(196,114,74,0.03);
+    }
+    .offer-badge {
+      position: absolute; top: 1rem; right: 1rem;
+      font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: white;
+      background: var(--terracotta);
+      padding: 0.2rem 0.6rem; border-radius: 50px;
+    }
+    .offer-icon { font-size: 1.5rem; margin-bottom: 0.7rem; }
+    .offer-name {
+      font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 600;
+      color: var(--charcoal); margin-bottom: 0.4rem;
+    }
+    .offer-desc { font-size: 0.85rem; color: var(--warm-gray); line-height: 1.6; }
+    .offer-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+    .offer-tag {
+      font-size: 0.7rem; padding: 0.2rem 0.65rem;
+      border-radius: 50px; background: var(--sand);
+      color: var(--warm-gray); font-weight: 500;
+    }
+
+    /* EMAIL FORM */
+    .email-section {
+      background: var(--charcoal); border-radius: 24px;
+      padding: 2.2rem; margin-bottom: 1.5rem; color: white;
+    }
+    .email-section h3 {
+      font-family: 'Lora', serif; font-size: 1.2rem; font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .email-section p {
+      font-size: 0.85rem; color: rgba(255,255,255,0.6);
+      margin-bottom: 1.4rem; line-height: 1.6;
+    }
+    .email-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .email-field { display: flex; flex-direction: column; gap: 0.3rem; }
+    .email-field label { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+    .email-field input {
+      padding: 0.75rem 1rem;
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 12px;
+      background: rgba(255,255,255,0.07); color: white;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .email-field input:focus { border-color: var(--terracotta-light); }
+    .email-field input::placeholder { color: rgba(255,255,255,0.3); }
+    .btn-send {
+      width: 100%; margin-top: 1rem;
+      background: var(--terracotta); color: white;
+      border: none; padding: 0.85rem;
+      border-radius: 50px; font-size: 0.95rem; font-weight: 500;
+      cursor: pointer; font-family: 'DM Sans', sans-serif;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(196,114,74,0.4);
+    }
+    .btn-send:hover { background: var(--terracotta-light); }
+    .email-note {
+      font-size: 0.72rem; color: rgba(255,255,255,0.35);
+      text-align: center; margin-top: 0.6rem;
+    }
+
+    /* RDV SECTION */
+    .rdv-section {
+      background: white; border-radius: 24px;
+      padding: 2rem; border: 1px solid var(--sand);
+      text-align: center; display: none;
+    }
+    .rdv-section.show { display: block; }
+    .rdv-section h3 {
+      font-family: 'Lora', serif; font-size: 1.2rem; font-weight: 700;
+      color: var(--charcoal); margin-bottom: 0.4rem;
+    }
+    .rdv-section p {
+      font-size: 0.85rem; color: var(--warm-gray);
+      margin-bottom: 1.4rem; line-height: 1.6;
+    }
+    .rdv-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-rdv {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.8rem 1.6rem; border-radius: 50px;
+      font-size: 0.9rem; font-weight: 500; text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-rdv.calendly {
+      background: var(--terracotta); color: white;
+      box-shadow: 0 4px 16px rgba(196,114,74,0.3);
+    }
+    .btn-rdv.calendly:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+    .btn-rdv.gcal {
+      border: 1.5px solid var(--sand); color: var(--charcoal);
+    }
+    .btn-rdv.gcal:hover { border-color: var(--warm-gray); }
+
+    /* SENT SUCCESS */
+    .sent-msg {
+      display: none; text-align: center; padding: 1rem 0;
+      color: var(--sage); font-size: 0.9rem; font-weight: 500;
+    }
+    .sent-msg.show { display: block; }
+
+    @media (max-width: 900px) {
+      .audit-hero { padding: 5.25rem 1rem 1.5rem; }
+      .audit-hero p { margin-bottom: 1.25rem; }
+      .progress-wrap { padding: 0 1rem; margin-bottom: 1.25rem; }
+      .steps-container { padding: 0 1rem 2.5rem; }
+      .q-card { padding: 1.35rem 1.1rem; }
+      #results { padding: 0 1rem 2.5rem; }
+      .score-card { padding: 1.75rem 1.1rem; }
+      .step-nav { margin-top: 0.35rem; }
+    }
+
+    @media (max-width: 600px) {
+      .audit-hero { padding: 5rem 0.85rem 1.25rem; }
+      .progress-wrap { padding: 0 0.85rem; }
+      .steps-container { padding: 0 0.85rem 2rem; }
+      #results { padding: 0 0.85rem 2rem; }
+      .options.cols-2 { grid-template-columns: 1fr; }
+      .scale-opts { gap: 0.3rem; }
+      .scale-opt { font-size: 0.78rem; padding: 0.6rem 0.2rem; }
+      .email-grid { grid-template-columns: 1fr; }
+      .rdv-btns { flex-direction: column; }
+      .btn-rdv { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 80" height="32" style="display:block;"><polygon points="36,2 66,18 66,52 36,68 6,52 6,18" fill="none" stroke="#C4724A" stroke-width="3" stroke-linejoin="round"/><path d="M20,18 L20,52" stroke="#C4724A" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M20,28 Q34,20 46,14" stroke="#C4724A" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M20,36 Q34,44 48,52" stroke="#7A9E87" stroke-width="5" stroke-linecap="round" fill="none"/><circle cx="60" cy="14" r="5" fill="#C9A96E"/><text x="84" y="47" font-family="'Lora',Georgia,serif" font-size="36" font-weight="700" font-style="italic" fill="#2C2420" letter-spacing="-1">Karay</text></svg></a>
+  <ul class="nav-links">
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="tarifs.html">Tarifs</a></li>
+      <li><a href="index.html#comment">Comment &ccedil;a marche</a></li>
+      <li><a href="documents.html">Ressources</a></li>
+    <li><a href="audit.html" class="nav-cta">Audit gratuit &rarr;</a></li>
+  </ul>
+  <a href="panier.html" class="nav-cart" aria-label="Voir le panier">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    <span class="cart-badge">0</span>
+  </a>
+  <button type="button" class="burger" id="burger-btn" onclick="toggleMobile()" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-drawer">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+  <div class="mobile-menu-backdrop" onclick="toggleMobile()" aria-hidden="true"></div>
+  <ul class="mobile-menu" id="mobile-menu" role="menu">
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="tarifs.html">Tarifs</a></li>
+      <li><a href="index.html#comment">Comment &ccedil;a marche</a></li>
+      <li><a href="documents.html">Ressources</a></li>
+    <li><a href="audit.html" class="nav-cta" role="menuitem">Audit gratuit &rarr;</a></li>
+  </ul>
+</div>
+
+
+<div class="audit-hero">
+  <p class="eyebrow">&#10022; 100% gratuit &middot; Sans engagement</p>
+  <h1>Votre audit IA<br/><em>personnalis&eacute;</em></h1>
+  <p>8 questions cibl&eacute;es pour &eacute;valuer votre maturit&eacute; IA et recevoir des recommandations concr&egrave;tes adapt&eacute;es &agrave; votre profil.</p>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-meta">
+    <span id="step-label">&Eacute;tape 1 sur 8</span>
+    <span id="step-pct">0%</span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+</div>
+
+<div class="steps-container" id="steps-container">
+
+  <!-- STEP 1: Profil -->
+  <div class="step active" data-step="1">
+    <div class="q-card">
+      <p class="q-number">Question 1 / 8</p>
+      <h2 class="q-title">Vous &ecirc;tes&hellip;</h2>
+      <p class="q-hint">Cela nous permet d'adapter les recommandations &agrave; votre contexte.</p>
+      <div class="options" id="q1">
+        <div class="opt" data-q="q1" data-val="particulier" data-score="0" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Particulier / Freelance</div><div class="opt-sub">Vous travaillez seul ou en tant qu'ind&eacute;pendant</div></div>
+        </div>
+        <div class="opt" data-q="q1" data-val="tpe" data-score="1" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Petite entreprise (1&ndash;10 personnes)</div><div class="opt-sub">TPE, micro-entreprise, petite &eacute;quipe</div></div>
+        </div>
+        <div class="opt" data-q="q1" data-val="pme" data-score="2" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">PME / Structure &eacute;tablie (10&ndash;100 personnes)</div><div class="opt-sub">Vous avez des &eacute;quipes et des processus d&eacute;finis</div></div>
+        </div>
+        <div class="opt" data-q="q1" data-val="autre" data-score="1" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Association / Secteur public / Autre</div><div class="opt-sub">Structure &agrave; but non lucratif ou organisme</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <span></span>
+      <button class="btn-next" onclick="nextStep()" id="btn-next-1" disabled>Suivant &rarr;</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Secteur -->
+  <div class="step" data-step="2">
+    <div class="q-card">
+      <p class="q-number">Question 2 / 8</p>
+      <h2 class="q-title">Dans quel domaine exercez-vous ?</h2>
+      <p class="q-hint">Votre secteur influence les types d'automatisations et d'outils IA les plus pertinents.</p>
+      <div class="options cols-2" id="q2">
+        <div class="opt" data-q="q2" data-val="commerce" data-score="2" onclick="selectOpt(this)">
+          <span class="opt-check"></span><div><div class="opt-label">Commerce / E-commerce</div></div>
+        </div>
+        <div class="opt" data-q="q2" data-val="service" data-score="2" onclick="selectOpt(this)">
+          <span class="opt-check"></span><div><div class="opt-label">Services / Conseil</div></div>
+        </div>
+        <div class="opt" data-q="q2" data-val="sante" data-score="1" onclick="selectOpt(this)">
+          <span class="opt-check"></span><div><div class="opt-label">Sant&eacute; / Bien-&ecirc;tre</div></div>
+        </div>
+        <div class="opt" data-q="q2" data-val="creation" data-score="2" onclick="selectOpt(this)">
+          <span class="opt-check"></span><div><div class="opt-label">Cr&eacute;ation / Communication</div></div>
+        </div>
+        <div class="opt" data-q="q2" data-val="artisan" data-score="1" onclick="selectOpt(this)">
+          <span class="opt-check"></span><div><div class="opt-label">Artisanat / BTP / Terrain</div></div>
+        </div>
+        <div class="opt" data-q="q2" data-val="education" data-score="2" onclick="selectOpt(this)">
+          <span class="opt-check"></span><div><div class="opt-label">&Eacute;ducation / Enseignement</div></div>
+        </div>
+        <div class="opt" data-q="q2" data-val="tech" data-score="3" onclick="selectOpt(this)">
+          <span class="opt-check"></span><div><div class="opt-label">Tech / Digital / SaaS</div></div>
+        </div>
+        <div class="opt" data-q="q2" data-val="autre" data-score="1" onclick="selectOpt(this)">
+          <span class="opt-check"></span><div><div class="opt-label">Autre secteur</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn-prev" onclick="prevStep()">&larr; Pr&eacute;c&eacute;dent</button>
+      <button class="btn-next" onclick="nextStep()" id="btn-next-2" disabled>Suivant &rarr;</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Niveau IA -->
+  <div class="step" data-step="3">
+    <div class="q-card">
+      <p class="q-number">Question 3 / 8</p>
+      <h2 class="q-title">O&ugrave; en &ecirc;tes-vous avec l'IA aujourd'hui ?</h2>
+      <p class="q-hint">Soyez honn&ecirc;te &mdash; il n'y a pas de mauvaise r&eacute;ponse.</p>
+      <div class="options" id="q3">
+        <div class="opt" data-q="q3" data-val="debutant" data-score="0" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Je n'ai jamais vraiment utilis&eacute; l'IA</div><div class="opt-sub">J'entends parler de ChatGPT mais je n'ai pas encore saut&eacute; le pas</div></div>
+        </div>
+        <div class="opt" data-q="q3" data-val="curieux" data-score="1" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Je teste de temps en temps, sans m&eacute;thode</div><div class="opt-sub">J'utilise ChatGPT ou Gemini de fa&ccedil;on ponctuelle</div></div>
+        </div>
+        <div class="opt" data-q="q3" data-val="regulier" data-score="2" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Je l'utilise r&eacute;guli&egrave;rement dans mon travail</div><div class="opt-sub">L'IA fait partie de mes outils quotidiens</div></div>
+        </div>
+        <div class="opt" data-q="q3" data-val="avance" data-score="3" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">J'automatise d&eacute;j&agrave; certains processus avec l'IA</div><div class="opt-sub">J'utilise des workflows, des API ou des outils no-code</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn-prev" onclick="prevStep()">&larr; Pr&eacute;c&eacute;dent</button>
+      <button class="btn-next" onclick="nextStep()" id="btn-next-3" disabled>Suivant &rarr;</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: T&acirc;ches r&eacute;p&eacute;titives -->
+  <div class="step" data-step="4">
+    <div class="q-card">
+      <p class="q-number">Question 4 / 8</p>
+      <h2 class="q-title">Quelles t&acirc;ches vous font perdre le plus de temps ?</h2>
+      <p class="q-hint">S&eacute;lectionnez tout ce qui s'applique &mdash; ces zones sont vos leviers d'automatisation prioritaires.</p>
+      <div class="options" id="q4">
+        <div class="opt opt-multi" data-q="q4" data-val="emails" data-score="2" onclick="selectMulti(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Gestion des emails / r&eacute;ponses clients</div></div>
+        </div>
+        <div class="opt opt-multi" data-q="q4" data-val="contenu" data-score="2" onclick="selectMulti(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Cr&eacute;ation de contenu (posts, articles, fiches)</div></div>
+        </div>
+        <div class="opt opt-multi" data-q="q4" data-val="reporting" data-score="2" onclick="selectMulti(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Reporting / tableaux de bord / suivi</div></div>
+        </div>
+        <div class="opt opt-multi" data-q="q4" data-val="prospection" data-score="2" onclick="selectMulti(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Prospection et qualification de leads</div></div>
+        </div>
+        <div class="opt opt-multi" data-q="q4" data-val="admin" data-score="1" onclick="selectMulti(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">T&acirc;ches administratives (factures, devis, planning)</div></div>
+        </div>
+        <div class="opt opt-multi" data-q="q4" data-val="sav" data-score="2" onclick="selectMulti(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Service client / support / FAQ</div></div>
+        </div>
+        <div class="opt opt-multi" data-q="q4" data-val="recrutement" data-score="1" onclick="selectMulti(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">RH / Recrutement / onboarding</div></div>
+        </div>
+        <div class="opt opt-multi" data-q="q4" data-val="aucune" data-score="0" onclick="selectMulti(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Je ne vois pas de t&acirc;che r&eacute;p&eacute;titive pour l'instant</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn-prev" onclick="prevStep()">&larr; Pr&eacute;c&eacute;dent</button>
+      <button class="btn-next" onclick="nextStep()" id="btn-next-4" disabled>Suivant &rarr;</button>
+    </div>
+  </div>
+
+  <!-- STEP 5: Pr&eacute;sence web -->
+  <div class="step" data-step="5">
+    <div class="q-card">
+      <p class="q-number">Question 5 / 8</p>
+      <h2 class="q-title">Quelle est votre pr&eacute;sence en ligne actuelle ?</h2>
+      <p class="q-hint">Cela nous aide &agrave; &eacute;valuer vos besoins en web design et SEO.</p>
+      <div class="options" id="q5">
+        <div class="opt" data-q="q5" data-val="aucun" data-score="0" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Aucun site web pour le moment</div><div class="opt-sub">Je suis uniquement sur les r&eacute;seaux sociaux ou bouche-&agrave;-oreille</div></div>
+        </div>
+        <div class="opt" data-q="q5" data-val="basique" data-score="1" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Un site simple mais peu optimis&eacute;</div><div class="opt-sub">Il existe mais ne g&eacute;n&egrave;re pas vraiment de contacts</div></div>
+        </div>
+        <div class="opt" data-q="q5" data-val="actif" data-score="2" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Un site actif avec du trafic</div><div class="opt-sub">Il fonctionne mais je veux l'am&eacute;liorer ou acc&eacute;l&eacute;rer le SEO</div></div>
+        </div>
+        <div class="opt" data-q="q5" data-val="fort" data-score="3" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Une pr&eacute;sence digitale bien &eacute;tablie</div><div class="opt-sub">Site + SEO + r&eacute;seaux sociaux d&eacute;j&agrave; actifs</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn-prev" onclick="prevStep()">&larr; Pr&eacute;c&eacute;dent</button>
+      <button class="btn-next" onclick="nextStep()" id="btn-next-5" disabled>Suivant &rarr;</button>
+    </div>
+  </div>
+
+  <!-- STEP 6: Budget / urgence -->
+  <div class="step" data-step="6">
+    <div class="q-card">
+      <p class="q-number">Question 6 / 8</p>
+      <h2 class="q-title">Quel est votre horizon d'action ?</h2>
+      <p class="q-hint">Urgence et budget permettent de calibrer les recommandations &agrave; ce qui est r&eacute;alisable pour vous maintenant.</p>
+
+      <p style="font-size:0.85rem;font-weight:500;color:var(--charcoal);margin-bottom:0.7rem;">Quand souhaitez-vous d&eacute;marrer ?</p>
+      <div class="options" id="q6a" style="margin-bottom:1.4rem;">
+        <div class="opt" data-q="q6a" data-val="maintenant" data-score="3" onclick="selectOpt(this)">
+          <span class="opt-check"></span><div><div class="opt-label">D&egrave;s maintenant &mdash; c'est urgent</div></div>
+        </div>
+        <div class="opt" data-q="q6a" data-val="mois" data-score="2" onclick="selectOpt(this)">
+          <span class="opt-check"></span><div><div class="opt-label">Dans le mois qui vient</div></div>
+        </div>
+        <div class="opt" data-q="q6a" data-val="trimestre" data-score="1" onclick="selectOpt(this)">
+          <span class="opt-check"></span><div><div class="opt-label">D'ici 3 mois &mdash; je pr&eacute;pare</div></div>
+        </div>
+        <div class="opt" data-q="q6a" data-val="exploration" data-score="0" onclick="selectOpt(this)">
+          <span class="opt-check"></span><div><div class="opt-label">Je suis encore en phase d'exploration</div></div>
+        </div>
+      </div>
+
+      <p style="font-size:0.85rem;font-weight:500;color:var(--charcoal);margin-bottom:0.7rem;">Enveloppe mensuelle envisag&eacute;e pour l'IA ?</p>
+      <div class="scale-wrap" id="q6b">
+        <div class="scale-opts">
+          <div class="scale-opt" data-q="q6b" data-val="0" data-score="0" onclick="selectScale(this)">0 &euro;</div>
+          <div class="scale-opt" data-q="q6b" data-val="50" data-score="1" onclick="selectScale(this)">&lt;50 &euro;</div>
+          <div class="scale-opt" data-q="q6b" data-val="200" data-score="2" onclick="selectScale(this)">50&ndash;200 &euro;</div>
+          <div class="scale-opt" data-q="q6b" data-val="500" data-score="3" onclick="selectScale(this)">200&ndash;500 &euro;</div>
+          <div class="scale-opt" data-q="q6b" data-val="plus" data-score="4" onclick="selectScale(this)">&gt;500 &euro;</div>
+        </div>
+        <div class="scale-labels"><span>Pas de budget d&eacute;fini</span><span>Budget confortable</span></div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn-prev" onclick="prevStep()">&larr; Pr&eacute;c&eacute;dent</button>
+      <button class="btn-next" onclick="nextStep()" id="btn-next-6" disabled>Suivant &rarr;</button>
+    </div>
+  </div>
+
+  <!-- STEP 7: Objectif principal -->
+  <div class="step" data-step="7">
+    <div class="q-card">
+      <p class="q-number">Question 7 / 8</p>
+      <h2 class="q-title">Quel est votre objectif prioritaire avec l'IA ?</h2>
+      <p class="q-hint">Un seul choix &mdash; celui qui compte le plus pour vous en ce moment.</p>
+      <div class="options" id="q7">
+        <div class="opt" data-q="q7" data-val="gagner_temps" data-score="3" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Gagner du temps sur les t&acirc;ches r&eacute;p&eacute;titives</div><div class="opt-sub">Automatiser pour me concentrer sur ce qui compte</div></div>
+        </div>
+        <div class="opt" data-q="q7" data-val="visibilite" data-score="2" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Am&eacute;liorer ma visibilit&eacute; en ligne</div><div class="opt-sub">SEO, site web, pr&eacute;sence digitale</div></div>
+        </div>
+        <div class="opt" data-q="q7" data-val="apprendre" data-score="1" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Apprendre &agrave; utiliser l'IA efficacement</div><div class="opt-sub">Comprendre, ma&icirc;triser, devenir autonome</div></div>
+        </div>
+        <div class="opt" data-q="q7" data-val="image" data-score="1" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Renforcer mon identit&eacute; visuelle et ma marque</div><div class="opt-sub">Logo, charte, communication coh&eacute;rente</div></div>
+        </div>
+        <div class="opt" data-q="q7" data-val="croissance" data-score="3" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Acc&eacute;l&eacute;rer ma croissance commerciale</div><div class="opt-sub">Plus de leads, meilleure conversion, scale</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn-prev" onclick="prevStep()">&larr; Pr&eacute;c&eacute;dent</button>
+      <button class="btn-next" onclick="nextStep()" id="btn-next-7" disabled>Suivant &rarr;</button>
+    </div>
+  </div>
+
+  <!-- STEP 8: Frein principal -->
+  <div class="step" data-step="8">
+    <div class="q-card">
+      <p class="q-number">Question 8 / 8</p>
+      <h2 class="q-title">Qu'est-ce qui vous freine le plus jusqu'ici ?</h2>
+      <p class="q-hint">Cette derni&egrave;re question nous aide &agrave; adapter notre approche d'accompagnement.</p>
+      <div class="options" id="q8">
+        <div class="opt" data-q="q8" data-val="peur" data-score="0" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">La peur de la complexit&eacute; technique</div><div class="opt-sub">Je ne suis pas "tech" et j'ai peur de me perdre</div></div>
+        </div>
+        <div class="opt" data-q="q8" data-val="temps" data-score="1" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Le manque de temps pour me former</div><div class="opt-sub">Je sais que c'est important mais je n'ai pas le temps</div></div>
+        </div>
+        <div class="opt" data-q="q8" data-val="budget" data-score="1" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">L'incertitude sur le ROI et les co&ucirc;ts</div><div class="opt-sub">Je ne sais pas si l'investissement en vaut la peine</div></div>
+        </div>
+        <div class="opt" data-q="q8" data-val="savoir" data-score="0" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Je ne sais pas par o&ugrave; commencer</div><div class="opt-sub">Il y a trop d'options, je manque de cap clair</div></div>
+        </div>
+        <div class="opt" data-q="q8" data-val="aucun" data-score="3" onclick="selectOpt(this)">
+          <span class="opt-check"></span>
+          <div><div class="opt-label">Rien &mdash; je suis pr&ecirc;t &agrave; passer &agrave; l'action</div><div class="opt-sub">Je cherche juste le bon partenaire</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn-prev" onclick="prevStep()">&larr; Pr&eacute;c&eacute;dent</button>
+      <button class="btn-next" onclick="showResults()" id="btn-next-8" disabled>Voir mes r&eacute;sultats &rarr;</button>
+    </div>
+  </div>
+
+</div><!-- /steps-container -->
+
+<!-- RESULTS -->
+<div id="results">
+
+  <div class="score-card">
+    <p class="score-label">Votre score de maturit&eacute; IA</p>
+    <h2 class="score-title" id="score-title">&mdash;</h2>
+    <p class="score-sub" id="score-sub">&mdash;</p>
+    <div class="score-meter">
+      <div class="meter-track"><div class="meter-fill" id="meter-fill"></div></div>
+      <div class="meter-labels"><span>D&eacute;butant</span><span>Avanc&eacute;</span></div>
+    </div>
+  </div>
+
+  <div class="insights" id="insights-container"></div>
+
+  <h3 class="offers-title">Nos recommandations pour vous</h3>
+  <div class="offers" id="offers-container"></div>
+
+  <!-- EMAIL FORM -->
+  <div class="email-section">
+    <h3>Recevez votre rapport complet par email</h3>
+    <p>Analyse d&eacute;taill&eacute;e, roadmap personnalis&eacute;e et ressources adapt&eacute;es &agrave; votre profil &mdash; directement dans votre bo&icirc;te mail.</p>
+    <form id="email-form" action="https://formspree.io/f/VOTRE_ID_FORMSPREE" method="POST" onsubmit="handleEmailSend(event)">
+      <input type="hidden" name="audit_score" id="hidden-score"/>
+      <input type="hidden" name="audit_profile" id="hidden-profile"/>
+      <input type="hidden" name="audit_recommandations" id="hidden-reco"/>
+      <div class="email-grid">
+        <div class="email-field">
+          <label>Pr&eacute;nom *</label>
+          <input type="text" name="prenom" placeholder="Votre pr&eacute;nom" required/>
+        </div>
+        <div class="email-field">
+          <label>Email *</label>
+          <input type="email" name="email" placeholder="votre@email.com" required/>
+        </div>
+        <div class="email-field">
+          <label>T&eacute;l&eacute;phone</label>
+          <input type="tel" name="telephone" placeholder="+33 6 00 00 00 00"/>
+        </div>
+        <div class="email-field">
+          <label>Entreprise / Activit&eacute;</label>
+          <input type="text" name="activite" placeholder="Ex: Photographe freelance"/>
+        </div>
+      </div>
+      <button type="submit" class="btn-send">Recevoir mon rapport complet &rarr;</button>
+      <p class="email-note">Vos donn&eacute;es restent confidentielles et ne sont jamais revendues.</p>
+    </form>
+    <p class="sent-msg" id="sent-msg">&#10003; Rapport envoy&eacute; ! V&eacute;rifiez votre bo&icirc;te mail dans les prochaines minutes.</p>
+  </div>
+
+  <!-- RDV -->
+  <div class="rdv-section" id="rdv-section">
+    <h3>Envie d'en parler directement ?</h3>
+    <p>R&eacute;servez un appel d&eacute;couverte de 30 minutes &mdash; gratuit, sans engagement. On fait le point ensemble sur votre situation.</p>
+    <div class="rdv-btns">
+      <a href="https://calendly.com/VOTRE_LIEN" target="_blank" class="btn-rdv calendly">
+        &#128197; R&eacute;server sur Calendly
+      </a>
+      <a href="https://calendar.google.com/calendar/appointments/VOTRE_LIEN" target="_blank" class="btn-rdv gcal">
+        &#128197; Via Google Calendar
+      </a>
+    </div>
+  </div>
+
+</div><!-- /results -->
+
+<footer>
+  <a href="index.html">&larr; Retour au site Karay</a> &nbsp;&middot;&nbsp;
+  &copy; 2025 Karay &nbsp;&middot;&nbsp;
+  <a href="mentions-legales.html">Mentions l&eacute;gales</a> &nbsp;&middot;&nbsp;
+  <a href="politique-confidentialite.html">Confidentialit&eacute;</a> &nbsp;&middot;&nbsp;
+  <a href="cgv.html">CGV</a>
+</footer>
+
+<script>
+  // -- STATE --
+  const answers = {};
+  let currentStep = 1;
+  const totalSteps = 8;
+
+  // -- SELECTION --
+  function selectOpt(el) {
+    const q = el.dataset.q;
+    document.querySelectorAll(`[data-q="${q}"]`).forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    answers[q] = { val: el.dataset.val, score: parseInt(el.dataset.score) };
+    enableNext(currentStep);
+  }
+
+  function selectMulti(el) {
+    const q = el.dataset.q;
+    if (el.dataset.val === 'aucune') {
+      document.querySelectorAll(`[data-q="${q}"]`).forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+    } else {
+      document.querySelector(`[data-q="${q}"][data-val="aucune"]`)?.classList.remove('selected');
+      el.classList.toggle('selected');
+    }
+    const selected = [...document.querySelectorAll(`[data-q="${q}"].selected`)];
+    if (selected.length > 0) {
+      answers[q] = {
+        val: selected.map(s => s.dataset.val),
+        score: selected.reduce((acc, s) => acc + parseInt(s.dataset.score), 0)
+      };
+      enableNext(currentStep);
+    } else {
+      delete answers[q];
+      document.getElementById(`btn-next-${currentStep}`)?.setAttribute('disabled', true);
+    }
+  }
+
+  function selectScale(el) {
+    const q = el.dataset.q;
+    document.querySelectorAll(`[data-q="${q}"]`).forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    answers[q] = { val: el.dataset.val, score: parseInt(el.dataset.score) };
+    enableNext(currentStep);
+  }
+
+  function enableNext(step) {
+    const btn = document.getElementById(`btn-next-${step}`);
+    if (!btn) return;
+    // Step 6 needs both q6a and q6b
+    if (step === 6) {
+      btn.disabled = !(answers['q6a'] && answers['q6b']);
+    } else {
+      btn.disabled = false;
+    }
+  }
+
+  // -- NAVIGATION --
+  function nextStep() {
+    document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+    currentStep++;
+    document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function prevStep() {
+    document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+    currentStep--;
+    document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateProgress() {
+    const pct = Math.round(((currentStep - 1) / totalSteps) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('step-label').textContent = `\u00c9tape ${currentStep} sur ${totalSteps}`;
+    document.getElementById('step-pct').textContent = pct + '%';
+  }
+
+  // -- SCORING --
+  function calcScore() {
+    const keys = ['q1','q2','q3','q4','q5','q6a','q6b','q7','q8'];
+    const raw = keys.reduce((acc, k) => acc + (answers[k]?.score || 0), 0);
+    const maxScore = 3+3+3+16+3+3+4+3+3; // max possible
+    return Math.round((raw / maxScore) * 100);
+  }
+
+  // -- RESULTS --
+  function showResults() {
+    document.getElementById('steps-container').style.display = 'none';
+    document.querySelector('.progress-wrap').style.display = 'none';
+    document.getElementById('results').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    const score = calcScore();
+    const profile = answers['q1']?.val || 'particulier';
+    const niveau = answers['q3']?.val || 'debutant';
+    const objectif = answers['q7']?.val || 'apprendre';
+    const frein = answers['q8']?.val || 'peur';
+    const presence = answers['q5']?.val || 'aucun';
+    const taches = answers['q4']?.val || [];
+
+    // Score title
+    let title, sub;
+    if (score < 25) {
+      title = "Potentiel IA : Terrain vierge \ud83c\udf31";
+      sub = "Vous partez de z\u00e9ro \u2014 c'est en fait une position id\u00e9ale. On construit les bonnes fondations d\u00e8s le d\u00e9part, sans mauvaises habitudes \u00e0 corriger.";
+    } else if (score < 50) {
+      title = "Potentiel IA : Premiers pas solides \ud83d\udeb6";
+      sub = "Vous avez conscience de l'IA et quelques pratiques en place. Il manque une m\u00e9thode claire pour transformer \u00e7a en gains r\u00e9els et r\u00e9guliers.";
+    } else if (score < 75) {
+      title = "Potentiel IA : Utilisateur actif \ud83d\ude80";
+      sub = "Vous utilisez d\u00e9j\u00e0 l'IA avec intention. L'enjeu maintenant : syst\u00e9matiser, automatiser et multiplier l'impact de ce que vous faites d\u00e9j\u00e0 bien.";
+    } else {
+      title = "Potentiel IA : Profil avanc\u00e9 \ud83c\udfc6";
+      sub = "Vous avez une maturit\u00e9 IA r\u00e9elle. La prochaine \u00e9tape, c'est l'int\u00e9gration profonde : workflows sur mesure, agents IA, optimisation continue.";
+    }
+
+    document.getElementById('score-title').textContent = title;
+    document.getElementById('score-sub').textContent = sub;
+    setTimeout(() => {
+      document.getElementById('meter-fill').style.width = score + '%';
+    }, 200);
+
+    // Hidden fields for email
+    document.getElementById('hidden-score').value = score + '%';
+    document.getElementById('hidden-profile').value = profile + ' / ' + niveau;
+
+    // -- INSIGHTS --
+    const insights = [];
+
+    if (niveau === 'debutant' || niveau === 'curieux') {
+      insights.push({
+        icon: '\ud83c\udf93', type: 'orange',
+        title: 'Accompagnement prioritaire',
+        text: 'Avant d\'automatiser, ma\u00eetriser les bases du prompting et des outils IA vous fera gagner 80% du chemin. Un accompagnement cibl\u00e9 peut transformer votre rapport \u00e0 l\'IA en quelques heures.'
+      });
+    }
+
+    const tachesArr = Array.isArray(taches) ? taches : [taches];
+    if (tachesArr.includes('emails') || tachesArr.includes('prospection') || tachesArr.includes('sav')) {
+      insights.push({
+        icon: '\u2699\ufe0f', type: 'green',
+        title: 'Automatisation \u00e0 fort ROI identifi\u00e9e',
+        text: 'Vos t\u00e2ches (emails, prospection, SAV) sont parmi les plus automatisables avec Make ou n8n. Un workflow bien configur\u00e9 peut vous faire gagner 5 \u00e0 10h par semaine d\u00e8s le premier mois.'
+      });
+    }
+
+    if (presence === 'aucun' || presence === 'basique') {
+      insights.push({
+        icon: '\ud83c\udf10', type: 'gold',
+        title: 'Pr\u00e9sence web : opportunit\u00e9 majeure',
+        text: 'Un site bien r\u00e9f\u00e9renc\u00e9 est votre meilleur commercial \u2014 disponible 24h/24. Avec les outils IA actuels, cr\u00e9er un site professionnel et optimis\u00e9 SEO prend d\u00e9sormais quelques jours, pas des mois.'
+      });
+    }
+
+    if (objectif === 'croissance' || objectif === 'gagner_temps') {
+      insights.push({
+        icon: '\ud83d\udcc8', type: 'green',
+        title: 'Votre objectif est parfaitement atteignable',
+        text: 'Gain de temps et croissance commerciale sont les deux domaines o\u00f9 l\'IA produit les r\u00e9sultats les plus mesurables et les plus rapides. Vous \u00eates dans la bonne direction.'
+      });
+    }
+
+    if (frein === 'peur' || frein === 'savoir') {
+      insights.push({
+        icon: '\ud83d\udee1', type: 'orange',
+        title: 'Vous avez besoin d\'un cap clair',
+        text: 'La complexit\u00e9 per\u00e7ue de l\'IA est souvent bien sup\u00e9rieure \u00e0 la r\u00e9alit\u00e9. Un accompagnement personnalis\u00e9 \u2014 m\u00eame court \u2014 suffit g\u00e9n\u00e9ralement \u00e0 d\u00e9bloquer la situation et cr\u00e9er une dynamique durable.'
+      });
+    }
+
+    if (insights.length === 0) {
+      insights.push({
+        icon: '\u2726', type: 'gold',
+        title: 'Profil solide, potentiel d\'optimisation r\u00e9el',
+        text: 'Vous avez d\u00e9j\u00e0 de bonnes pratiques en place. L\'enjeu est maintenant d\'aller plus loin : int\u00e9grations avanc\u00e9es, agents IA, workflows multi-\u00e9tapes qui travaillent pour vous en autonomie.'
+      });
+    }
+
+    const ic = document.getElementById('insights-container');
+    ic.innerHTML = insights.slice(0, 3).map(i => `
+      <div class="insight-card">
+        <div class="insight-icon ${i.type}">${i.icon}</div>
+        <div class="insight-body"><h4>${i.title}</h4><p>${i.text}</p></div>
+      </div>
+    `).join('');
+
+    // -- OFFERS --
+    const allOffers = [
+      {
+        id: 'accompagnement',
+        icon: '\ud83c\udf93',
+        name: 'Accompagnement IA',
+        desc: 'Programme personnalis\u00e9 pour ma\u00eetriser les outils IA essentiels (ChatGPT, Claude, Gemini), le prompting avanc\u00e9 et les meilleures pratiques \u2014 adapt\u00e9 \u00e0 votre secteur et \u00e0 votre niveau de d\u00e9part.',
+        tags: ['Prompting avanc\u00e9', 'ChatGPT \u00b7 Claude \u00b7 Gemini', 'Individuel ou groupe', 'Certifi\u00e9'],
+        featured: false,
+        forLevels: ['debutant', 'curieux'],
+        forObjectifs: ['apprendre', 'gagner_temps', 'croissance']
+      },
+      {
+        id: 'automation',
+        icon: '\u2699\ufe0f',
+        name: 'Workflows d\'Automatisation IA',
+        desc: 'Conception et d\u00e9ploiement de workflows sur mesure (Make, n8n, Zapier) pour automatiser vos processus m\u00e9tier. Nous partons de templates \u00e9prouv\u00e9s que nous adaptons \u00e0 votre activit\u00e9.',
+        tags: ['Make \u00b7 n8n \u00b7 Zapier', 'Workflows sur mesure', 'Accompagnement inclus', 'Support 30j'],
+        featured: false,
+        forLevels: ['regulier', 'avance', 'curieux'],
+        forObjectifs: ['gagner_temps', 'croissance']
+      },
+      {
+        id: 'web',
+        icon: '\ud83c\udf10',
+        name: 'Web Design & SEO assist\u00e9s IA',
+        desc: 'Cr\u00e9ation ou refonte de votre site web avec les outils IA les plus efficaces, optimisation SEO compl\u00e8te et mise en ligne rapide. De l\'id\u00e9e au site live en quelques jours.',
+        tags: ['Site web pro', 'SEO IA', 'Google Search Console', 'H\u00e9bergement inclus'],
+        featured: false,
+        forLevels: ['debutant', 'curieux', 'regulier'],
+        forObjectifs: ['visibilite', 'image', 'croissance']
+      }
+    ];
+
+    // Rank offers by relevance
+    const ranked = allOffers.map(o => {
+      let relevance = 0;
+      if (o.forLevels.includes(niveau)) relevance += 3;
+      if (o.forObjectifs.includes(objectif)) relevance += 4;
+      if (o.id === 'accompagnement' && (frein === 'peur' || frein === 'savoir')) relevance += 2;
+      if (o.id === 'automation' && tachesArr.length > 1) relevance += 2;
+      if (o.id === 'web' && (presence === 'aucun' || presence === 'basique')) relevance += 3;
+      return { ...o, relevance };
+    }).sort((a, b) => b.relevance - a.relevance);
+
+    ranked[0].featured = true;
+    document.getElementById('hidden-reco').value = ranked.map(o => o.name).join(' | ');
+
+    const oc = document.getElementById('offers-container');
+    oc.innerHTML = ranked.map(o => `
+      <div class="offer-card ${o.featured ? 'featured' : ''}">
+        ${o.featured ? '<span class="offer-badge">Recommand\u00e9 pour vous</span>' : ''}
+        <div class="offer-icon">${o.icon}</div>
+        <div class="offer-name">${o.name}</div>
+        <p class="offer-desc">${o.desc}</p>
+        <div class="offer-tags">${o.tags.map(t => `<span class="offer-tag">${t}</span>`).join('')}</div>
+      </div>
+    `).join('');
+  }
+
+  // -- EMAIL SEND --
+  function handleEmailSend(e) {
+    e.preventDefault();
+    const form = document.getElementById('email-form');
+    const data = new FormData(form);
+
+    fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    }).then(r => {
+      if (r.ok) {
+        form.style.display = 'none';
+        document.getElementById('sent-msg').classList.add('show');
+        setTimeout(() => {
+          document.getElementById('rdv-section').classList.add('show');
+          document.getElementById('rdv-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 1200);
+      }
+    }).catch(() => {
+      // Fallback \u2014 show RDV anyway
+      form.style.display = 'none';
+      document.getElementById('sent-msg').classList.add('show');
+      setTimeout(() => document.getElementById('rdv-section').classList.add('show'), 1200);
+    });
+  }
+</script>
+
+<script>
+  function toggleMobile() {
+    const drawer = document.getElementById('mobile-drawer');
+    const burger = document.getElementById('burger-btn');
+    if (!drawer || !burger) return;
+    const open = drawer.classList.toggle('open');
+    burger.classList.toggle('active', open);
+    burger.setAttribute('aria-expanded', open);
+    burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    drawer.setAttribute('aria-hidden', !open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  document.addEventListener('keydown', function (e) {
+    const drawer = document.getElementById('mobile-drawer');
+    if (e.key === 'Escape' && drawer && drawer.classList.contains('open')) {
+      toggleMobile();
+    }
+  });
+</script>
+<script src="cart.js"></script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,12 @@
+[build]
+  command = "echo 'Build complete'"
+  functions = "netlify/functions"
+  publish = "."
+
+[dev]
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

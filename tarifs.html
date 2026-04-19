@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tarifs &mdash; Karay</title>
+  <meta name="description" content="Tarifs Karay : cr&eacute;ation digitale, marketing, automatisation IA, accompagnement. Landing page d&egrave;s 199 &euro;, chatbot RAG d&egrave;s 3 000 &euro;. Paiement s&eacute;curis&eacute; Stripe."/>
+  <link rel="canonical" href="https://karay.fr/tarifs.html"/>
+  <meta property="og:type"        content="website"/>
+  <meta property="og:url"         content="https://karay.fr/tarifs.html"/>
+  <meta property="og:title"       content="Tarifs — Karay"/>
+  <meta property="og:description" content="Tarifs transparents pour création digitale, SEO, automatisation IA et accompagnement. Landing page dès 199 €."/>
+  <link rel="icon" type="image/svg+xml" href="karay-favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+
+    /* -- HERO -- */
+    .hero{padding:7rem 2rem 2.5rem;text-align:center;max-width:720px;margin:0 auto;}
+    .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--terracotta);margin-bottom:1rem;}
+    .hero h1{font-family:'Lora',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;line-height:1.15;letter-spacing:-.02em;color:var(--charcoal);margin-bottom:1rem;}
+    .hero h1 em{font-style:italic;color:var(--terracotta);}
+    .hero p{font-size:1rem;font-weight:300;color:var(--warm-gray);line-height:1.7;}
+
+    /* -- CATEGORY TABS -- */
+    .cat-tabs{display:flex;justify-content:center;gap:.6rem;padding:1.5rem 1rem 2.5rem;flex-wrap:wrap;max-width:900px;margin:0 auto;}
+    .cat-tab{padding:.65rem 1.4rem;border-radius:50px;font-size:.88rem;font-weight:500;border:2px solid var(--sand);background:white;color:var(--charcoal);cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
+    .cat-tab:hover{border-color:var(--terracotta-light);color:var(--terracotta);}
+    .cat-tab.active{background:var(--terracotta);color:white;border-color:var(--terracotta);}
+    .cat-tab .tab-icon{margin-right:.4rem;}
+
+    /* -- CATEGORY PANELS -- */
+    .cat-panel{display:none;max-width:1100px;margin:0 auto;padding:0 2rem 3rem;}
+    .cat-panel.active{display:block;}
+    .cat-panel-title{font-family:'Lora',serif;font-size:clamp(1.3rem,3vw,1.7rem);font-weight:700;color:var(--charcoal);text-align:center;margin:0 0 .4rem;}
+    .cat-panel-sub{font-size:.88rem;color:var(--warm-gray);text-align:center;max-width:34rem;margin:0 auto 2rem;line-height:1.6;}
+
+    /* -- SERVICE CARDS (inside panels) -- */
+    .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;}
+    .svc-card{background:white;border-radius:22px;padding:2rem;border:1px solid var(--sand);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden;}
+    .svc-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(44,36,32,.09);}
+    .svc-card.popular{border:2px solid var(--terracotta);}
+    .svc-badge{position:absolute;top:0;right:0;background:var(--terracotta);color:white;font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem 1rem .3rem .7rem;border-radius:0 0 0 14px;}
+    .svc-icon{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:.85rem;}
+    .svc-name{font-family:'Lora',serif;font-size:1.1rem;font-weight:700;color:var(--charcoal);margin-bottom:.3rem;}
+    .svc-tagline{font-size:.78rem;color:var(--terracotta);font-weight:500;margin-bottom:.4rem;}
+    .svc-desc{font-size:.83rem;color:var(--warm-gray);line-height:1.6;margin-bottom:1rem;}
+    .svc-price-row{display:flex;align-items:baseline;gap:.4rem;margin-bottom:.15rem;}
+    .svc-price-from{font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--warm-gray);}
+    .svc-price{font-family:'Lora',serif;font-size:2rem;font-weight:700;color:var(--charcoal);}
+    .svc-price-period{font-size:.8rem;color:var(--warm-gray);font-weight:300;margin-bottom:1rem;}
+
+    /* -- "En savoir plus" details -- */
+    .svc-details{margin-top:auto;}
+    .svc-details summary{font-size:.85rem;font-weight:600;color:var(--terracotta);cursor:pointer;padding:.6rem 0;list-style:none;display:flex;align-items:center;gap:.4rem;transition:color .2s;}
+    .svc-details summary:hover{color:var(--terracotta-dark);}
+    .svc-details summary::before{content:'+';font-size:1.1rem;font-weight:700;width:1.2rem;text-align:center;transition:transform .2s;}
+    .svc-details[open] summary::before{transform:rotate(45deg);}
+    .svc-details .svc-detail-content{padding:.5rem 0 .5rem 1.6rem;font-size:.82rem;color:var(--warm-gray);line-height:1.65;}
+    .svc-details .svc-detail-content ul{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin:.6rem 0;}
+    .svc-details .svc-detail-content ul li{display:flex;align-items:flex-start;gap:.4rem;}
+    .svc-details .svc-detail-content ul li::before{content:'\2713';color:var(--sage);font-weight:700;flex-shrink:0;}
+    .svc-btn{display:block;text-align:center;padding:.75rem 1.3rem;border-radius:50px;font-size:.9rem;font-weight:500;text-decoration:none;transition:all .2s;font-family:'DM Sans',sans-serif;margin-top:1rem;}
+    .svc-btn-primary{background:var(--terracotta);color:white;box-shadow:0 4px 14px rgba(196,114,74,.25);}
+    .svc-btn-primary:hover{background:var(--terracotta-dark);transform:translateY(-1px);}
+    .svc-btn-secondary{background:var(--sand);color:var(--charcoal);}
+    .svc-btn-secondary:hover{background:var(--sand-dark);}
+
+    /* -- CONSULTATIONS STRIP -- */
+    .consult-strip{max-width:800px;margin:0 auto 3rem;padding:0 2rem;}
+    .consult-strip-title{font-family:'Lora',serif;font-size:1.2rem;font-weight:700;color:var(--charcoal);text-align:center;margin-bottom:.3rem;}
+    .consult-strip-sub{font-size:.85rem;color:var(--warm-gray);text-align:center;margin-bottom:1.25rem;line-height:1.55;}
+    .consult-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:540px;margin:0 auto;}
+    .consult-card{background:white;border:1px solid var(--sand);border-radius:18px;padding:1.3rem;text-align:center;transition:transform .2s,box-shadow .2s;}
+    .consult-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(44,36,32,.07);}
+    .consult-card.highlight{border:2px solid var(--terracotta);}
+    .consult-name{font-family:'Lora',serif;font-size:1rem;font-weight:700;color:var(--charcoal);margin-bottom:.3rem;}
+    .consult-meta{font-size:.78rem;color:var(--warm-gray);margin-bottom:.65rem;}
+    .consult-price{font-family:'Lora',serif;font-size:1.3rem;font-weight:700;color:var(--charcoal);margin-bottom:.2rem;}
+    .consult-price span{font-size:.72rem;font-weight:400;color:var(--warm-gray);}
+    .consult-desc{font-size:.8rem;color:var(--warm-gray);margin-bottom:.85rem;line-height:1.45;}
+    .consult-btn{display:inline-block;background:var(--terracotta);color:white;padding:.6rem 1.15rem;border-radius:50px;font-size:.82rem;font-weight:500;text-decoration:none;transition:all .2s;}
+    .consult-btn:hover{background:var(--terracotta-dark);}
+
+    /* -- GUARANTEE, FAQ, CTA, FOOTER -- */
+    .guarantee{max-width:680px;margin:0 auto 3rem;text-align:center;padding:2rem;background:var(--warm-white);border-radius:20px;border:1px solid var(--sand);}
+    .guarantee h3{font-family:'Lora',serif;font-size:1.1rem;font-weight:600;color:var(--charcoal);margin-bottom:.5rem;}
+    .guarantee p{font-size:.88rem;color:var(--warm-gray);line-height:1.6;}
+    .payment-trust{display:flex;justify-content:center;gap:2rem;align-items:center;padding:1.5rem 2rem;flex-wrap:wrap;}
+    .trust-item{display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--light-gray);}
+    .faq-section{max-width:680px;margin:0 auto;padding:0 2rem 4rem;}
+    .faq-title{font-family:'Lora',serif;font-size:1.5rem;font-weight:700;color:var(--charcoal);text-align:center;margin-bottom:2rem;}
+    .faq-item{border-bottom:1px solid var(--sand);padding:1.2rem 0;}
+    .faq-q{font-size:.95rem;font-weight:500;color:var(--charcoal);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+    .faq-q::after{content:'+';font-size:1.2rem;color:var(--terracotta);transition:transform .3s;flex-shrink:0;}
+    .faq-item.open .faq-q::after{transform:rotate(45deg);}
+    .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;font-size:.88rem;color:var(--warm-gray);line-height:1.65;}
+    /* FIX: 300px pouvait tronquer les longues réponses — 800px couvre tous les cas */
+    .faq-item.open .faq-a{max-height:800px;padding-top:.8rem;}
+    .cta-strip{background:var(--terracotta);padding:3.5rem 2rem;text-align:center;}
+    .cta-strip h2{font-family:'Lora',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:white;margin-bottom:.5rem;}
+    .cta-strip h2 em{font-style:italic;opacity:.85;}
+    .cta-strip p{font-size:.9rem;color:rgba(255,255,255,.7);margin-bottom:1.5rem;}
+    .btn-light{display:inline-block;background:white;color:var(--terracotta);padding:.85rem 2rem;border-radius:50px;font-size:.95rem;font-weight:500;text-decoration:none;transition:all .2s;box-shadow:0 4px 16px rgba(0,0,0,.15);}
+    .btn-light:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2);}
+    @media(max-width:900px){
+      .hero{padding:5.25rem 1rem 1.5rem;}
+      .cat-tabs{gap:.4rem;padding:1rem .75rem 1.75rem;}
+      .cat-tab{padding:.5rem 1rem;font-size:.8rem;}
+      .cat-panel{padding:0 1rem 2.5rem;}
+      .svc-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto;}
+      .consult-strip{padding:0 1rem;}
+      .guarantee{padding:1.25rem 1rem;max-width:calc(100% - 2rem);}
+      .faq-section{padding:0 1rem 2.5rem;}
+      .cta-strip{padding:2rem 1rem;}
+      .payment-trust{padding:1rem;gap:.85rem;}
+      footer{padding:1.5rem 1rem;}
+    }
+    @media(max-width:600px){
+      .consult-grid{grid-template-columns:1fr;}
+      .hero{padding:5rem .85rem 1.25rem;}
+      .cta-strip{padding:1.65rem .85rem;}
+    }
+  </style>
+</head>
+<body>
+<a href="#main-tarifs" class="skip-link">Aller au contenu principal</a>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 80" height="32" style="display:block;"><polygon points="36,2 66,18 66,52 36,68 6,52 6,18" fill="none" stroke="#C4724A" stroke-width="3" stroke-linejoin="round"/><path d="M20,18 L20,52" stroke="#C4724A" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M20,28 Q34,20 46,14" stroke="#C4724A" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M20,36 Q34,44 48,52" stroke="#7A9E87" stroke-width="5" stroke-linecap="round" fill="none"/><circle cx="60" cy="14" r="5" fill="#C9A96E"/><text x="84" y="47" font-family="'Lora',Georgia,serif" font-size="36" font-weight="700" font-style="italic" fill="#2C2420" letter-spacing="-1">Karay</text></svg></a>
+  <ul class="nav-links">
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="tarifs.html" class="nav-active">Tarifs</a></li>
+    <li><a href="index.html#comment">Comment &ccedil;a marche</a></li>
+    <li><a href="documents.html">Ressources</a></li>
+    <li><a href="audit.html" class="nav-cta">Audit gratuit &rarr;</a></li>
+  </ul>
+  <a href="panier.html" class="nav-cart" aria-label="Voir le panier">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    <span class="cart-badge">0</span>
+  </a>
+  <button type="button" class="burger" id="burger-btn" onclick="toggleMobile()" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-drawer"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+  <div class="mobile-menu-backdrop" onclick="toggleMobile()" aria-hidden="true"></div>
+  <ul class="mobile-menu" id="mobile-menu" role="menu">
+    <li><a href="index.html#services" onclick="toggleMobile()">Services</a></li>
+    <li><a href="tarifs.html" onclick="toggleMobile()">Tarifs</a></li>
+    <li><a href="index.html#comment" onclick="toggleMobile()">Comment &ccedil;a marche</a></li>
+    <li><a href="documents.html" onclick="toggleMobile()">Ressources</a></li>
+    <li><a href="audit.html" class="nav-cta" role="menuitem" onclick="toggleMobile()">Audit gratuit &rarr;</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="eyebrow">&#10022; Tarifs transparents</p>
+  <h1>Des offres claires,<br/><em>adapt&eacute;es &agrave; vos besoins</em></h1>
+  <p>Choisissez votre cat&eacute;gorie ci-dessous pour d&eacute;couvrir nos offres. Paiement s&eacute;curis&eacute; par Stripe.</p>
+</div>
+
+<!-- CATEGORY TABS — id="tarifs-complets" permet les liens depuis index.html -->
+<main id="main-tarifs" tabindex="-1">
+<div class="cat-tabs" id="tarifs-complets">
+  <button class="cat-tab active" onclick="showCat('creation', this)"><span class="tab-icon">&#127760;</span> Cr&eacute;ation digitale</button>
+  <button class="cat-tab" onclick="showCat('marketing', this)"><span class="tab-icon">&#128200;</span> Marketing &amp; Visibilit&eacute;</button>
+  <button class="cat-tab" onclick="showCat('automation', this)"><span class="tab-icon">&#9889;</span> Automatisation &amp; Agents</button>
+  <button class="cat-tab" onclick="showCat('accompagnement', this)"><span class="tab-icon">&#127891;</span> Accompagnement</button>
+</div>
+
+<!-- ===================== CAT 1 : CREATION DIGITALE ===================== -->
+<div class="cat-panel active" id="panel-creation">
+  <h2 class="cat-panel-title">Cr&eacute;ation digitale</h2>
+  <p class="cat-panel-sub">Vous voulez exister en ligne &mdash; une page, un site, une identit&eacute; visuelle coh&eacute;rente.</p>
+  <div class="svc-grid">
+
+    <!-- Landing page -->
+    <div class="svc-card">
+      <div class="svc-icon icon-gold">&#127760;</div>
+      <div class="svc-name">Landing page</div>
+      <p class="svc-desc">Une page percutante pour pr&eacute;senter votre offre, capter des leads ou lancer un produit.</p>
+      <div class="svc-price-row"><span class="svc-price">199 &euro;</span></div>
+      <p class="svc-price-period">TTC &middot; Livr&eacute; en 3&ndash;5 jours</p>
+      <details class="svc-details">
+        <summary>En savoir plus</summary>
+        <div class="svc-detail-content">
+          <p>Design co-cr&eacute;&eacute; avec l'IA, responsive, mis en ligne sur votre h&eacute;bergement.</p>
+          <ul>
+            <li>Structure claire : accueil, offre, contact</li>
+            <li>Design personnalis&eacute; &agrave; votre marque</li>
+            <li>Responsive et optimis&eacute; pour la vitesse</li>
+            <li>Mise en ligne + transfert des acc&egrave;s</li>
+          </ul>
+        </div>
+      </details>
+      <button class="svc-btn svc-btn-cart" data-cart-id="landing-page" data-cart-name="Landing page" data-cart-price="199" data-cart-price-display="199 €" data-cart-period="TTC · Livré en 3–5 jours" data-cart-type="fixed" data-cart-stripe="https://buy.stripe.com/VOTRE_LIEN_LANDING_PAGE" onclick="addToCart(this)">Ajouter au panier +</button>
+    </div>
+
+    <!-- Landing + Logo + Identite -->
+    <div class="svc-card popular">
+      <span class="svc-badge">Populaire</span>
+      <div class="svc-icon icon-terra">&#10024;</div>
+      <div class="svc-name">Landing + Logo + Identit&eacute;</div>
+      <p class="svc-desc">La formule compl&egrave;te : landing page + logo + charte graphique. Tout livr&eacute; en coh&eacute;rence.</p>
+      <div class="svc-price-row"><span class="svc-price">399 &euro;</span></div>
+      <p class="svc-price-period">TTC &middot; Livr&eacute; en 5&ndash;7 jours</p>
+      <details class="svc-details">
+        <summary>En savoir plus</summary>
+        <div class="svc-detail-content">
+          <ul>
+            <li>Landing page compl&egrave;te (voir offre ci-dessus)</li>
+            <li>Logo vectoriel (.svg, .png, .pdf)</li>
+            <li>Charte : couleurs, typographies, ic&ocirc;nes</li>
+            <li>Guide d'utilisation de l'identit&eacute;</li>
+          </ul>
+        </div>
+      </details>
+      <button class="svc-btn svc-btn-cart" data-cart-id="landing-identite" data-cart-name="Landing + Logo + Identité" data-cart-price="399" data-cart-price-display="399 €" data-cart-period="TTC · Livré en 5–7 jours" data-cart-type="fixed" data-cart-stripe="https://buy.stripe.com/VOTRE_LIEN_LANDING_IDENTITE" onclick="addToCart(this)">Ajouter au panier +</button>
+    </div>
+
+    <!-- Site web complet -->
+    <div class="svc-card">
+      <div class="svc-icon icon-sage">&#127760;</div>
+      <div class="svc-name">Site web complet</div>
+      <p class="svc-desc">Site vitrine multi-pages ou e-commerce. Structure, contenus, SEO technique et mise en ligne.</p>
+      <div class="svc-price-row"><span class="svc-price-from">&Agrave; partir de</span><span class="svc-price">199 &euro;</span></div>
+      <p class="svc-price-period">TTC &middot; Sur devis selon le projet</p>
+      <details class="svc-details">
+        <summary>En savoir plus</summary>
+        <div class="svc-detail-content">
+          <ul>
+            <li>Design et contenus co-construits avec l'IA</li>
+            <li>Pages : accueil, offres, blog, contact &mdash; selon vos besoins</li>
+            <li>Zones pr&ecirc;tes pour blog, newsletter, r&eacute;seaux</li>
+            <li>Responsive, performances et base SEO</li>
+            <li>Prise en main et documentation incluses</li>
+          </ul>
+        </div>
+      </details>
+      <button class="svc-btn svc-btn-cart" data-cart-id="site-web" data-cart-name="Site web complet" data-cart-price-display="À partir de 199 €" data-cart-period="TTC · Sur devis selon le projet" data-cart-type="custom" onclick="addToCart(this)">Ajouter au devis +</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===================== CAT 2 : MARKETING & VISIBILITE ===================== -->
+<div class="cat-panel" id="panel-marketing">
+  <h2 class="cat-panel-title">Marketing &amp; Visibilit&eacute;</h2>
+  <p class="cat-panel-sub">Vous voulez plus de clients &mdash; &ecirc;tre trouv&eacute; sur Google, publier r&eacute;guli&egrave;rement, g&eacute;n&eacute;rer de l'engagement.</p>
+  <div class="svc-grid">
+
+    <!-- Createur de contenu -->
+    <div class="svc-card popular">
+      <span class="svc-badge">Cl&eacute; en main</span>
+      <div class="svc-icon icon-terra">&#10024;</div>
+      <div class="svc-name">Cr&eacute;ateur de contenu IA</div>
+      <p class="svc-desc">Calendrier &eacute;ditorial, prompts et workflows pour publier plus r&eacute;guli&egrave;rement sur vos canaux.</p>
+      <div class="svc-price-row"><span class="svc-price">399 &euro;</span></div>
+      <p class="svc-price-period">TTC &middot; Forfait pr&ecirc;t &agrave; l'emploi</p>
+      <details class="svc-details">
+        <summary>En savoir plus</summary>
+        <div class="svc-detail-content">
+          <p>On part de votre ligne &eacute;ditoriale et de vos canaux (r&eacute;seaux, blog, newsletter). Je d&eacute;finis un calendrier r&eacute;aliste, des prompts adapt&eacute;s &agrave; votre ton, puis des workflows (Make ou n8n) reli&eacute;s &agrave; Notion ou Airtable.</p>
+          <ul>
+            <li>Calendrier &eacute;ditorial et prompts adapt&eacute;s</li>
+            <li>Workflows Make / n8n, Notion ou Airtable</li>
+            <li>Connexion API r&eacute;seaux, blog, emailing</li>
+            <li>Tests, documentation et ajustements</li>
+          </ul>
+        </div>
+      </details>
+      <button class="svc-btn svc-btn-cart" data-cart-id="contenu-ia" data-cart-name="Créateur de contenu IA" data-cart-price="399" data-cart-price-display="399 €" data-cart-period="TTC · Forfait prêt à l'emploi" data-cart-type="fixed" data-cart-stripe="https://buy.stripe.com/VOTRE_LIEN_CREATION_CONTENU" onclick="addToCart(this)">Ajouter au panier +</button>
+    </div>
+
+    <!-- SEO -->
+    <div class="svc-card">
+      <div class="svc-icon icon-gold">&#128200;</div>
+      <div class="svc-name">SEO propuls&eacute; par l'IA</div>
+      <p class="svc-desc">Am&eacute;liorez votre visibilit&eacute; Google : mots-cl&eacute;s, contenus optimis&eacute;s, balisage et suivi.</p>
+      <div class="svc-price-row"><span class="svc-price">349 &euro;</span></div>
+      <p class="svc-price-period">TTC &middot; Mission SEO</p>
+      <details class="svc-details">
+        <summary>En savoir plus</summary>
+        <div class="svc-detail-content">
+          <ul>
+            <li>Recherche de mots-cl&eacute;s et intentions de recherche</li>
+            <li>Plan de contenus et r&eacute;daction assist&eacute;e IA</li>
+            <li>Schema, maillage interne, suivi des positions</li>
+            <li>Livrables et reporting inclus</li>
+          </ul>
+        </div>
+      </details>
+      <button class="svc-btn svc-btn-cart" data-cart-id="seo" data-cart-name="SEO propulsé par l'IA" data-cart-price="349" data-cart-price-display="349 €" data-cart-period="TTC · Mission SEO" data-cart-type="fixed" data-cart-stripe="https://buy.stripe.com/VOTRE_LIEN_SEO" onclick="addToCart(this)">Ajouter au panier +</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===================== CAT 3 : AUTOMATISATION & AGENTS ===================== -->
+<div class="cat-panel" id="panel-automation">
+  <h2 class="cat-panel-title">Automatisation &amp; Agents IA</h2>
+  <p class="cat-panel-sub">Vous voulez que &ccedil;a tourne tout seul &mdash; workflows, agents intelligents, publication automatis&eacute;e.</p>
+  <div class="svc-grid">
+
+    <!-- Createur de contenu (aussi ici) -->
+    <div class="svc-card">
+      <div class="svc-icon icon-terra">&#10024;</div>
+      <div class="svc-name">Cr&eacute;ateur de contenu IA</div>
+      <p class="svc-tagline">&Eacute;galement dans Marketing</p>
+      <p class="svc-desc">Workflows automatis&eacute;s pour publier du contenu sur vos canaux sans intervention manuelle.</p>
+      <div class="svc-price-row"><span class="svc-price">399 &euro;</span></div>
+      <p class="svc-price-period">TTC &middot; Forfait pr&ecirc;t &agrave; l'emploi</p>
+      <details class="svc-details">
+        <summary>En savoir plus</summary>
+        <div class="svc-detail-content">
+          <ul>
+            <li>Calendrier &eacute;ditorial et prompts adapt&eacute;s</li>
+            <li>Workflows Make / n8n, Notion ou Airtable</li>
+            <li>Connexion API r&eacute;seaux, blog, emailing</li>
+            <li>Tests, documentation et ajustements</li>
+          </ul>
+        </div>
+      </details>
+      <button class="svc-btn svc-btn-cart" data-cart-id="contenu-ia" data-cart-name="Créateur de contenu IA" data-cart-price="399" data-cart-price-display="399 €" data-cart-period="TTC · Forfait prêt à l'emploi" data-cart-type="fixed" data-cart-stripe="https://buy.stripe.com/VOTRE_LIEN_CREATION_CONTENU" onclick="addToCart(this)">Ajouter au panier +</button>
+    </div>
+
+    <!-- Automatisation sur mesure -->
+    <div class="svc-card popular">
+      <span class="svc-badge">Sur mesure</span>
+      <div class="svc-icon icon-sage">&#9889;</div>
+      <div class="svc-name">Automatisation sur mesure</div>
+      <p class="svc-desc">Des workflows personnalis&eacute;s : leads, emails, rapports et int&eacute;grations entre vos outils.</p>
+      <div class="svc-price-row"><span class="svc-price">599 &euro;</span></div>
+      <p class="svc-price-period">TTC &middot; Par workflow</p>
+      <details class="svc-details">
+        <summary>En savoir plus</summary>
+        <div class="svc-detail-content">
+          <p>Analyse de vos processus, conception des sc&eacute;narios, int&eacute;grations et documentation.</p>
+          <ul>
+            <li>Analyse de vos processus actuels</li>
+            <li>Conception sur Make, n8n ou Zapier</li>
+            <li>Int&eacute;gration CRM, email, tableurs</li>
+            <li>Documentation et 30 jours d'ajustements</li>
+          </ul>
+        </div>
+      </details>
+      <button class="svc-btn svc-btn-cart" data-cart-id="automation" data-cart-name="Automatisation sur mesure" data-cart-price="599" data-cart-price-display="599 €" data-cart-period="TTC · Par workflow" data-cart-type="fixed" data-cart-stripe="https://buy.stripe.com/VOTRE_LIEN_AUTOMATION" onclick="addToCart(this)">Ajouter au panier +</button>
+    </div>
+
+    <!-- Chatbot RAG -->
+    <div class="svc-card">
+      <div class="svc-icon icon-terra">&#129302;</div>
+      <div class="svc-name">Chatbot IA / Agent RAG</div>
+      <p class="svc-tagline">Connect&eacute; &agrave; vos donn&eacute;es</p>
+      <p class="svc-desc">Un agent IA qui r&eacute;pond aux questions de vos clients en s'appuyant sur vos documents et FAQ.</p>
+      <div class="svc-price-row"><span class="svc-price-from">&Agrave; partir de</span><span class="svc-price">3 000 &euro;</span></div>
+      <p class="svc-price-period">TTC &middot; Projet cl&eacute; en main</p>
+      <details class="svc-details">
+        <summary>En savoir plus</summary>
+        <div class="svc-detail-content">
+          <ul>
+            <li>Ingestion de vos documents (PDF, Notion, site web&hellip;)</li>
+            <li>Moteur RAG sur mesure (OpenAI, Mistral, Claude&hellip;)</li>
+            <li>Widget chat int&eacute;grable (site ou outil interne)</li>
+            <li>Tests qualit&eacute;, documentation et prise en main</li>
+            <li>Option maintenance mensuelle (99&nbsp;&euro;/mois)</li>
+          </ul>
+        </div>
+      </details>
+      <button class="svc-btn svc-btn-cart" data-cart-id="chatbot" data-cart-name="Chatbot IA / Agent RAG" data-cart-price-display="À partir de 3 000 €" data-cart-period="TTC · Projet clé en main" data-cart-type="custom" onclick="addToCart(this)">Ajouter au devis +</button>
+    </div>
+
+    <!-- Maintenance -->
+    <div class="svc-card">
+      <div class="svc-icon icon-sage">&#128260;</div>
+      <div class="svc-name">Maintenance workflow</div>
+      <p class="svc-desc">Vos automatisations surveill&eacute;es et maintenues chaque mois : erreurs, mises &agrave; jour, mini-ajustements.</p>
+      <div class="svc-price-row"><span class="svc-price">99 &euro;</span></div>
+      <p class="svc-price-period">TTC &middot; /mois &middot; Sans engagement</p>
+      <details class="svc-details">
+        <summary>En savoir plus</summary>
+        <div class="svc-detail-content">
+          <ul>
+            <li>Monitoring mensuel des sc&eacute;narios actifs</li>
+            <li>Correction des erreurs d'ex&eacute;cution</li>
+            <li>Jusqu'&agrave; 2 ajustements par mois</li>
+            <li>Rapport mensuel de synth&egrave;se</li>
+          </ul>
+        </div>
+      </details>
+      <button class="svc-btn svc-btn-cart" data-cart-id="maintenance" data-cart-name="Maintenance workflow" data-cart-price="99" data-cart-price-display="99 €" data-cart-period="TTC · /mois · Sans engagement" data-cart-type="subscription" data-cart-stripe="https://buy.stripe.com/VOTRE_LIEN_MAINTENANCE" onclick="addToCart(this)">Ajouter au panier +</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===================== CAT 4 : ACCOMPAGNEMENT ===================== -->
+<div class="cat-panel" id="panel-accompagnement">
+  <h2 class="cat-panel-title">Accompagnement &amp; Conseil</h2>
+  <p class="cat-panel-sub">Vous voulez monter en comp&eacute;tence &mdash; apprendre &agrave; utiliser l'IA dans votre m&eacute;tier, ou &ecirc;tre guid&eacute; sur un projet.</p>
+  <div class="svc-grid">
+
+    <!-- Accompagnement IA -->
+    <div class="svc-card popular">
+      <span class="svc-badge">Bestseller</span>
+      <div class="svc-icon icon-sage">&#127891;</div>
+      <div class="svc-name">Accompagnement IA</div>
+      <p class="svc-tagline">Formation sur mesure selon vos besoins</p>
+      <p class="svc-desc">Sessions orient&eacute;es r&eacute;sultat : ChatGPT, Claude, Gemini, prompting et cas concrets de votre m&eacute;tier.</p>
+      <div class="svc-price-row"><span class="svc-price">499 &euro;</span></div>
+      <p class="svc-price-period">TTC &middot; Forfait (session de 3 h incluse)</p>
+      <details class="svc-details">
+        <summary>En savoir plus</summary>
+        <div class="svc-detail-content">
+          <p>Cadrage de vos besoins, exercices sur vos fichiers r&eacute;els, guide PDF r&eacute;capitulatif. Format individuel ou petit groupe.</p>
+          <ul>
+            <li>Cadrage de votre niveau et vos objectifs</li>
+            <li>Exercices sur vos documents r&eacute;els</li>
+            <li>Session d'appel de 3 h en direct</li>
+            <li>Guide PDF des m&eacute;thodes vues</li>
+          </ul>
+        </div>
+      </details>
+      <button class="svc-btn svc-btn-cart" data-cart-id="accompagnement" data-cart-name="Accompagnement IA" data-cart-price="499" data-cart-price-display="499 €" data-cart-period="TTC · Forfait (session de 3 h incluse)" data-cart-type="fixed" data-cart-stripe="https://buy.stripe.com/VOTRE_LIEN_ACCOMPAGNEMENT_IA" onclick="addToCart(this)">Ajouter au panier +</button>
+    </div>
+
+    <!-- Demi-journee -->
+    <div class="svc-card">
+      <div class="svc-icon icon-terra">&#9201;</div>
+      <div class="svc-name">Prestation &agrave; la demi-journ&eacute;e</div>
+      <p class="svc-desc">Appui ponctuel sur un projet pr&eacute;cis : audit, cadrage, mise en place ou correctif urgent.</p>
+      <div class="svc-price-row"><span class="svc-price">199 &euro;</span></div>
+      <p class="svc-price-period">TTC &middot; ~4 h de travail</p>
+      <details class="svc-details">
+        <summary>En savoir plus</summary>
+        <div class="svc-detail-content">
+          <ul>
+            <li>Brief pr&eacute;alable (15 min) pour cadrer le besoin</li>
+            <li>Session de travail en direct ou en autonomie</li>
+            <li>Livrables et acc&egrave;s remis le jour m&ecirc;me</li>
+            <li>Facture et compte-rendu inclus</li>
+          </ul>
+        </div>
+      </details>
+      <button class="svc-btn svc-btn-cart" data-cart-id="demi-journee" data-cart-name="Prestation à la demi-journée" data-cart-price="199" data-cart-price-display="199 €" data-cart-period="TTC · ~4 h de travail" data-cart-type="fixed" data-cart-stripe="https://buy.stripe.com/VOTRE_LIEN_TJM" onclick="addToCart(this)">Ajouter au panier +</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===================== CONSULTATIONS (sous toutes les categories) ===================== -->
+<div class="consult-strip">
+  <h3 class="consult-strip-title">Pas encore d&eacute;cid&eacute; ? Parlons-en.</h3>
+  <p class="consult-strip-sub">R&eacute;servez une consultation visio pour cadrer votre besoin avant de vous engager &mdash; ou faites l'<a href="audit.html" style="color:var(--terracotta);">audit gratuit en ligne</a> (3 min).</p>
+  <div class="consult-grid">
+    <div class="consult-card">
+      <p class="consult-name">Consultation express</p>
+      <p class="consult-meta">30 min &middot; visioconf&eacute;rence</p>
+      <p class="consult-price">29,99&nbsp;&euro; <span>TTC</span></p>
+      <p class="consult-desc">Question cibl&eacute;e ou premier tri des options.</p>
+      <a href="https://buy.stripe.com/VOTRE_LIEN_APPEL_30MIN" target="_blank" rel="noopener" class="consult-btn">R&eacute;server &rarr;</a>
+    </div>
+    <div class="consult-card highlight">
+      <p class="consult-name">Consultation strat&eacute;gique</p>
+      <p class="consult-meta">1 heure &middot; visioconf&eacute;rence</p>
+      <p class="consult-price">44,99&nbsp;&euro; <span>TTC</span></p>
+      <p class="consult-desc">Cadrage de projet, priorit&eacute;s et plan d'action.</p>
+      <a href="https://buy.stripe.com/VOTRE_LIEN_APPEL_1H" target="_blank" rel="noopener" class="consult-btn">R&eacute;server &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<!-- GUARANTEE -->
+<div class="guarantee">
+  <h3>&#128737; Satisfaction garantie</h3>
+  <p>Si le r&eacute;sultat livr&eacute; ne correspond pas au cahier des charges valid&eacute; ensemble, je m'engage &agrave; effectuer les ajustements n&eacute;cessaires gratuitement.</p>
+</div>
+
+<!-- TRUST -->
+<div class="payment-trust">
+  <span class="trust-item">&#128274; Paiement s&eacute;curis&eacute; Stripe</span>
+  <span class="trust-item">&#128179; CB, Apple Pay, Google Pay</span>
+  <span class="trust-item">&#128196; Facture automatique</span>
+  <span class="trust-item">&#128260; Facilit&eacute; de paiement</span>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <h2 class="faq-title">Questions fr&eacute;quentes</h2>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">Comment se passe le paiement ?</div>
+    <div class="faq-a">Le paiement est s&eacute;curis&eacute; via Stripe. Vous &ecirc;tes redirig&eacute; vers une page Stripe o&ugrave; vous pouvez payer par CB, Apple Pay ou Google Pay. Facture automatique par email.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">Que se passe-t-il apr&egrave;s le paiement ?</div>
+    <div class="faq-a">Vous recevez un email de confirmation. Je vous contacte sous 24 h pour planifier le premier &eacute;change et d&eacute;marrer le projet.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">Proposez-vous un audit gratuit ?</div>
+    <div class="faq-a">Oui ! L'audit IA gratuit (3 min) vous aide &agrave; identifier l'offre qui vous correspond. <a href="audit.html" style="color:var(--terracotta);">Faire l'audit &rarr;</a></div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">Les prix incluent-ils la TVA ?</div>
+    <div class="faq-a">Les prix affich&eacute;s sont TTC. Pour les entreprises, la facture d&eacute;taille le montant HT et la TVA applicable.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">Puis-je combiner plusieurs services ?</div>
+    <div class="faq-a">Bien s&ucirc;r ! Contactez-moi pour un devis group&eacute; avantageux.</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-strip">
+  <h2>Pas encore s&ucirc;r ?<br/><em>Commencez par l'audit gratuit.</em></h2>
+  <p>3 minutes pour &eacute;valuer votre potentiel IA et recevoir des recommandations personnalis&eacute;es.</p>
+  <a href="audit.html" class="btn-light">Faire l'audit gratuit &rarr;</a>
+</div>
+
+</main><!-- /main-tarifs -->
+
+<footer>
+  <a href="index.html">&larr; Retour au site</a> &nbsp;&middot;&nbsp;
+  &copy; 2026 Karay &nbsp;&middot;&nbsp;
+  <a href="mentions-legales.html">Mentions l&eacute;gales</a> &nbsp;&middot;&nbsp;
+  <a href="politique-confidentialite.html">Confidentialit&eacute;</a> &nbsp;&middot;&nbsp;
+  <a href="cgv.html">CGV</a>
+</footer>
+
+<script>
+/* FIX: reçoit "tab" (this) au lieu d'utiliser l'objet event implicite et global */
+function showCat(id, tab) {
+  document.querySelectorAll('.cat-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.cat-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.getElementById('panel-' + id).classList.add('active');
+  tab.classList.add('active');
+  /* Scroll vers les tabs uniquement si hors viewport */
+  var tabsEl = document.querySelector('.cat-tabs');
+  var rect = tabsEl.getBoundingClientRect();
+  if (rect.top < 72) {
+    window.scrollTo({ top: tabsEl.offsetTop - 80, behavior: 'smooth' });
+  }
+  /* FIX: re-synchronise les boutons "✓ Ajouté" (ex: "Créateur contenu" présent dans 2 tabs) */
+  if (typeof window.syncCartButtons === 'function') window.syncCartButtons();
+}
+function toggleMobile() {
+  var drawer = document.getElementById('mobile-drawer');
+  var burger = document.getElementById('burger-btn');
+  if (!drawer || !burger) return;
+  var open = drawer.classList.toggle('open');
+  burger.classList.toggle('active', open);
+  burger.setAttribute('aria-expanded', open);
+  burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+  drawer.setAttribute('aria-hidden', !open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+document.addEventListener('keydown', function(e) {
+  var d = document.getElementById('mobile-drawer');
+  if (e.key === 'Escape' && d && d.classList.contains('open')) toggleMobile();
+});
+</script>
+<script src="cart.js"></script>
+</body>
+</html>

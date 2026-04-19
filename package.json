@@ -1,0 +1,16 @@
+{
+  "name": "karay-site",
+  "version": "1.0.0",
+  "description": "Site e-commerce Karay avec paiement Stripe dynamique",
+  "main": "index.html",
+  "dependencies": {
+    "stripe": "^15.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

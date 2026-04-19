@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mon panier &mdash; Karay</title>
+  <meta name="description" content="Votre sélection de services Karay. Renseignez vos coordonnées puis procédez au paiement ou à la demande de devis."/>
+  <link rel="icon" type="image/svg+xml" href="karay-favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+
+    /* ── HERO ── */
+    .cart-hero { padding: 7rem 2rem 2rem; text-align: center; }
+    .cart-hero h1 { font-family: 'Lora', serif; font-size: clamp(1.8rem,4vw,2.6rem); font-weight: 700; color: var(--charcoal); margin-bottom: .5rem; }
+    .cart-hero h1 em { color: var(--terracotta); font-style: italic; }
+    .cart-hero p { font-size: .95rem; color: var(--warm-gray); }
+
+    /* ── LAYOUT ── */
+    .cart-wrap { max-width: 760px; margin: 0 auto; padding: 2rem 2rem 6rem; }
+
+    /* ── ÉTAT VIDE ── */
+    .cart-empty { text-align: center; padding: 4rem 2rem; }
+    .cart-empty-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+    .cart-empty h2 { font-family: 'Lora', serif; font-size: 1.4rem; font-weight: 700; color: var(--charcoal); margin-bottom: .6rem; }
+    .cart-empty p { color: var(--warm-gray); font-size: .9rem; margin-bottom: 1.5rem; line-height: 1.6; }
+    .btn-go { display: inline-block; background: var(--terracotta); color: white; padding: .8rem 1.8rem; border-radius: 50px; font-size: .9rem; font-weight: 500; text-decoration: none; transition: all .2s; }
+    .btn-go:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+
+    /* ── ÉTAPES ── */
+    .steps-bar { display: flex; align-items: center; gap: 0; margin-bottom: 2.5rem; }
+    .step { display: flex; align-items: center; gap: .5rem; font-size: .78rem; font-weight: 500; color: var(--light-gray); }
+    .step.active { color: var(--terracotta); }
+    .step.done { color: var(--sage); }
+    .step-num { width: 24px; height: 24px; border-radius: 50%; border: 2px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: .65rem; font-weight: 700; flex-shrink: 0; }
+    .step-sep { flex: 1; height: 1px; background: var(--sand); margin: 0 .5rem; }
+
+    /* ── TITRES DE SECTION ── */
+    .section-title {
+      font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 700;
+      color: var(--charcoal); margin-bottom: 1rem;
+      padding-bottom: .6rem; border-bottom: 2px solid var(--sand);
+      display: flex; align-items: baseline; gap: .6rem;
+    }
+    .section-title small { font-size: .72rem; font-weight: 400; font-family: 'DM Sans', sans-serif; color: var(--warm-gray); }
+
+    /* ── LIGNE DE SERVICE ── */
+    .cart-item { display: flex; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--sand); }
+    .cart-item-icon { width: 42px; height: 42px; border-radius: 12px; background: var(--sand); display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0; }
+    .cart-item-info { flex: 1; min-width: 0; }
+    .cart-item-name { font-weight: 500; color: var(--charcoal); font-size: .93rem; }
+    .cart-item-period { font-size: .75rem; color: var(--warm-gray); margin-top: .15rem; }
+    .cart-item-type { display: inline-block; font-size: .66rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: .15rem .55rem; border-radius: 50px; margin-top: .25rem; }
+    .type-fixed { background: rgba(196,114,74,.1); color: var(--terracotta); }
+    .type-sub { background: rgba(122,158,135,.15); color: var(--sage); }
+    .type-custom { background: rgba(201,169,110,.15); color: #9A7940; }
+    .cart-item-price { font-family: 'Lora', serif; font-weight: 700; font-size: 1rem; color: var(--charcoal); white-space: nowrap; }
+    .cart-item-price.is-custom { font-size: .78rem; font-family: 'DM Sans', sans-serif; font-weight: 500; color: var(--warm-gray); }
+    .cart-item-remove { background: none; border: none; color: var(--light-gray); cursor: pointer; font-size: 1.1rem; padding: .35rem; transition: color .2s; flex-shrink: 0; }
+    .cart-item-remove:hover { color: var(--terracotta); }
+
+    /* ── FORMULAIRE ── */
+    .cart-form-box { background: white; border: 1px solid var(--sand); border-radius: 22px; padding: 1.75rem; margin-top: 2rem; }
+    .cart-form-box .section-title { margin-bottom: .4rem; border: none; padding: 0; }
+    .cart-form-intro { font-size: .86rem; color: var(--warm-gray); margin-bottom: 1.5rem; line-height: 1.65; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: .35rem; margin-bottom: .9rem; }
+    .form-group label { font-size: .81rem; font-weight: 500; color: var(--charcoal); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      border: 1.5px solid var(--sand-dark); border-radius: 10px;
+      padding: .7rem .9rem;
+      font-family: 'DM Sans', sans-serif; font-size: .88rem;
+      color: var(--charcoal); background: white;
+      transition: border-color .2s; outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--terracotta); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-note { font-size: .73rem; color: var(--light-gray); margin-top: -.5rem; margin-bottom: .4rem; line-height: 1.5; }
+    .btn-submit { width: 100%; background: var(--terracotta); color: white; border: none; padding: .9rem; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: .95rem; font-weight: 500; cursor: pointer; transition: all .2s; margin-top: .3rem; }
+    .btn-submit:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+    .btn-submit:disabled { opacity: .6; cursor: default; transform: none; }
+
+    /* ── SUCCÈS + PAIEMENT ── */
+    .cart-success { display: none; margin-top: 2rem; }
+    .success-banner { background: var(--sage); color: white; border-radius: 16px; padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+    .success-check { font-size: 1.4rem; flex-shrink: 0; }
+    .success-text h3 { font-size: 1rem; font-weight: 600; margin-bottom: .2rem; }
+    .success-text p { font-size: .83rem; opacity: .9; }
+
+    .payment-box { background: white; border: 1px solid var(--sand); border-radius: 22px; padding: 1.75rem; margin-bottom: 1.5rem; }
+    .payment-box h3 { font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 700; color: var(--charcoal); margin-bottom: .3rem; }
+    .payment-box p { font-size: .83rem; color: var(--warm-gray); margin-bottom: 1.25rem; line-height: 1.55; }
+    .cart-total-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid var(--sand); }
+    .cart-total-label { font-size: .83rem; color: var(--warm-gray); }
+    .cart-total-amount { font-family: 'Lora', serif; font-size: 1.6rem; font-weight: 700; color: var(--charcoal); }
+    .cart-pay-btns { display: flex; flex-direction: column; gap: .5rem; }
+    .cart-pay-btn { display: flex; justify-content: space-between; align-items: center; padding: .75rem 1.25rem; background: var(--terracotta); color: white; border-radius: 50px; text-decoration: none; font-size: .87rem; font-weight: 500; transition: all .2s; }
+    .cart-pay-btn:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+    .cart-pay-btn .pay-price { opacity: .75; font-weight: 300; }
+    .payment-note { font-size: .72rem; color: var(--light-gray); text-align: center; margin-top: .75rem; line-height: 1.5; }
+
+    .devis-confirm-box { background: var(--warm-white); border: 1px solid var(--sand); border-radius: 22px; padding: 1.75rem; margin-bottom: 1.5rem; }
+    .devis-confirm-box h3 { font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 700; color: var(--charcoal); margin-bottom: .5rem; }
+    .devis-confirm-box p { font-size: .86rem; color: var(--warm-gray); line-height: 1.6; }
+
+    /* ── VIDER / ACTIONS ── */
+    .cart-actions { text-align: center; margin-top: 1.5rem; }
+    .cart-actions button { background: none; border: none; color: var(--light-gray); font-size: .78rem; cursor: pointer; text-decoration: underline; font-family: 'DM Sans', sans-serif; }
+    .cart-actions button:hover { color: var(--warm-gray); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .cart-hero { padding: 5.5rem 1rem 1.5rem; }
+      .cart-wrap { padding: 1.5rem 1rem 4rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 80" height="32" style="display:block;"><polygon points="36,2 66,18 66,52 36,68 6,52 6,18" fill="none" stroke="#C4724A" stroke-width="3" stroke-linejoin="round"/><path d="M20,18 L20,52" stroke="#C4724A" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M20,28 Q34,20 46,14" stroke="#C4724A" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M20,36 Q34,44 48,52" stroke="#7A9E87" stroke-width="5" stroke-linecap="round" fill="none"/><circle cx="60" cy="14" r="5" fill="#C9A96E"/><text x="84" y="47" font-family="'Lora',Georgia,serif" font-size="36" font-weight="700" font-style="italic" fill="#2C2420" letter-spacing="-1">Karay</text></svg></a>
+  <ul class="nav-links">
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="tarifs.html">Tarifs</a></li>
+    <li><a href="index.html#comment">Comment &ccedil;a marche</a></li>
+    <li><a href="documents.html">Ressources</a></li>
+    <li><a href="audit.html" class="nav-cta">Audit gratuit &rarr;</a></li>
+  </ul>
+  <a href="panier.html" class="nav-cart nav-active" aria-label="Voir le panier">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    <span class="cart-badge">0</span>
+  </a>
+  <button type="button" class="burger" id="burger-btn" onclick="toggleMobile()" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-drawer">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+  <div class="mobile-menu-backdrop" onclick="toggleMobile()" aria-hidden="true"></div>
+  <ul class="mobile-menu" id="mobile-menu" role="menu">
+    <li><a href="index.html#services" onclick="toggleMobile()">Services</a></li>
+    <li><a href="tarifs.html" onclick="toggleMobile()">Tarifs</a></li>
+    <li><a href="index.html#comment" onclick="toggleMobile()">Comment &ccedil;a marche</a></li>
+    <li><a href="documents.html" onclick="toggleMobile()">Ressources</a></li>
+    <li><a href="audit.html" class="nav-cta" role="menuitem" onclick="toggleMobile()">Audit gratuit &rarr;</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<div class="cart-hero">
+  <h1>Mon <em>panier</em></h1>
+  <p id="cart-subtitle">Chargement&hellip;</p>
+</div>
+
+<div class="cart-wrap">
+
+  <!-- ── ÉTAT VIDE ── -->
+  <div class="cart-empty" id="cart-empty" style="display:none">
+    <div class="cart-empty-icon">&#128722;</div>
+    <h2>Votre panier est vide</h2>
+    <p>Parcourez nos services et ajoutez-en au panier &mdash; ils vous attendront ici avant que vous finalisiez votre commande ou devis.</p>
+    <a href="tarifs.html" class="btn-go">Voir les services &rarr;</a>
+  </div>
+
+  <!-- ── CONTENU PANIER ── -->
+  <div id="cart-content" style="display:none">
+
+    <!-- Barre d'étapes -->
+    <div class="steps-bar">
+      <div class="step done" id="step1">
+        <span class="step-num">1</span> S&eacute;lection
+      </div>
+      <div class="step-sep"></div>
+      <div class="step active" id="step2">
+        <span class="step-num">2</span> Coordonn&eacute;es
+      </div>
+      <div class="step-sep"></div>
+      <div class="step" id="step3">
+        <span class="step-num">3</span> Finalisation
+      </div>
+    </div>
+
+    <!-- ── Étape 1 : Services sélectionnés ── -->
+    <div id="step-selection">
+      <h2 class="section-title">Vos services s&eacute;lectionn&eacute;s</h2>
+      <div id="cart-items-list"></div>
+      <div class="cart-actions">
+        <button onclick="clearCart()">Vider le panier</button>
+      </div>
+    </div>
+
+    <!-- ── Étape 2 : Formulaire de contact ── -->
+    <div class="cart-form-box" id="step-form">
+      <h2 class="section-title">
+        Vos coordonn&eacute;es
+        <small>Requis avant toute commande</small>
+      </h2>
+      <p class="cart-form-intro">
+        Renseignez vos informations pour que je puisse traiter votre demande et vous contacter rapidement.
+      </p>
+
+      <form id="contact-form" action="https://formspree.io/f/VOTRE_ID_FORMSPREE" method="POST">
+        <!-- Champs cachés remplis par JavaScript -->
+        <input type="hidden" name="_subject"         id="f-subject"  value="Nouvelle commande — Karay"/>
+        <input type="hidden" name="services"         id="f-services" value=""/>
+        <input type="hidden" name="type_demande"     id="f-type"     value=""/>
+        <input type="hidden" name="source"           value="panier"/>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="f-nom">Nom / Pr&eacute;nom *</label>
+            <input type="text" id="f-nom" name="nom" required placeholder="Marie Dupont"/>
+          </div>
+          <div class="form-group">
+            <label for="f-email">Email *</label>
+            <input type="email" id="f-email" name="email" required placeholder="marie@exemple.fr"/>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="f-societe">Soci&eacute;t&eacute; / Activit&eacute; <span style="font-weight:300">(opt.)</span></label>
+            <input type="text" id="f-societe" name="societe" placeholder="Auto-entrepreneur, PME&hellip;"/>
+          </div>
+          <div class="form-group">
+            <label for="f-tel">T&eacute;l&eacute;phone *</label>
+            <input type="tel" id="f-tel" name="telephone" required placeholder="+33 6 00 00 00 00"/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="f-message">Questions ou pr&eacute;cisions <span style="font-weight:300" id="message-opt">(optionnel)</span></label>
+          <textarea id="f-message" name="message" placeholder="D&eacute;crivez votre projet, vos contraintes ou toute information utile&hellip;"></textarea>
+        </div>
+        <p class="form-note">Vos donn&eacute;es sont confidentielles et ne seront jamais revendues.</p>
+
+        <button type="submit" class="btn-submit" id="submit-btn">Confirmer ma s&eacute;lection &rarr;</button>
+      </form>
+    </div>
+
+    <!-- ── Étape 3 : Après validation ── -->
+    <div class="cart-success" id="cart-success">
+
+      <div class="success-banner">
+        <span class="success-check">&#10003;</span>
+        <div class="success-text">
+          <h3>Vos coordonn&eacute;es ont bien &eacute;t&eacute; enregistr&eacute;es !</h3>
+          <p>Je vous confirmerai votre commande par email sous peu.</p>
+        </div>
+      </div>
+
+      <!-- Paiement (services à prix fixe) -->
+      <div class="payment-box" id="payment-section" style="display:none">
+        <h3>&#128274; Finalisez votre paiement</h3>
+        <p>Vos coordonn&eacute;es ont &eacute;t&eacute; transmises. Vous pouvez maintenant proc&eacute;der au paiement s&eacute;curis&eacute; via Stripe pour chaque service :</p>
+        <div class="cart-total-row">
+          <span class="cart-total-label">Total estim&eacute;</span>
+          <span class="cart-total-amount" id="success-total">&mdash;</span>
+        </div>
+        <div class="cart-pay-btns" id="success-pay-btns"></div>
+        <p class="payment-note">Paiement s&eacute;curis&eacute; Stripe &middot; CB, Apple Pay, Google Pay &middot; Facture automatique par email.</p>
+      </div>
+
+      <!-- Devis (services sur mesure) -->
+      <div class="devis-confirm-box" id="devis-section" style="display:none">
+        <h3>&#128338; Demande de devis enregistr&eacute;e</h3>
+        <p>Je vous r&eacute;ponds <strong>sous 48&nbsp;h</strong> avec une proposition personnalis&eacute;e adapt&eacute;e &agrave; votre situation et votre budget. En cas d&rsquo;urgence, contactez-moi directement par email.</p>
+      </div>
+
+      <div style="text-align:center;margin-top:1.5rem">
+        <a href="tarifs.html" style="font-size:.83rem;color:var(--warm-gray);text-decoration:underline;">Ajouter d&rsquo;autres services &rarr;</a>
+      </div>
+    </div>
+
+  </div><!-- /cart-content -->
+</div><!-- /cart-wrap -->
+
+<footer>
+  <a href="tarifs.html">&larr; Retour aux tarifs</a> &nbsp;&middot;&nbsp;
+  &copy; 2026 Karay &nbsp;&middot;&nbsp;
+  <a href="mentions-legales.html">Mentions l&eacute;gales</a> &nbsp;&middot;&nbsp;
+  <a href="politique-confidentialite.html">Confidentialit&eacute;</a> &nbsp;&middot;&nbsp;
+  <a href="cgv.html">CGV</a>
+</footer>
+
+<script src="cart.js"></script>
+<script>
+  var TYPE_ICON  = { fixed: '&#128230;', subscription: '&#128260;', custom: '&#9998;&#65039;' };
+  var TYPE_LABEL = { fixed: 'Achat unique', subscription: 'Abonnement', custom: 'Sur devis' };
+  var TYPE_CSS   = { fixed: 'type-fixed', subscription: 'type-sub', custom: 'type-custom' };
+
+  /* ── Rendu du panier ── */
+  function renderCart() {
+    var cart     = getCartData();
+    var subtitle = document.getElementById('cart-subtitle');
+    var emptyEl  = document.getElementById('cart-empty');
+    var contentEl= document.getElementById('cart-content');
+
+    if (cart.length === 0) {
+      subtitle.textContent = 'Votre panier est vide.';
+      emptyEl.style.display  = 'block';
+      contentEl.style.display= 'none';
+      return;
+    }
+
+    var n = cart.length;
+    subtitle.textContent = n + ' service' + (n > 1 ? 's' : '') + ' s\u00e9lectionn\u00e9' + (n > 1 ? 's' : '');
+    emptyEl.style.display  = 'none';
+    contentEl.style.display= 'block';
+
+    /* -- Remplir les items -- */
+    var html = '';
+    cart.forEach(function(item) {
+      var icon  = TYPE_ICON[item.type]  || '&#128230;';
+      var label = TYPE_LABEL[item.type] || '';
+      var css   = TYPE_CSS[item.type]   || 'type-fixed';
+      var priceHtml = item.type === 'custom'
+        ? '<span class="cart-item-price is-custom">Sur devis</span>'
+        : '<span class="cart-item-price">' + item.priceDisplay + (item.type === 'subscription' ? '/mois' : '') + '</span>';
+
+      html += '<div class="cart-item">'
+        + '<div class="cart-item-icon">' + icon + '</div>'
+        + '<div class="cart-item-info">'
+          + '<div class="cart-item-name">' + item.name + '</div>'
+          + '<div class="cart-item-period">' + item.period + '</div>'
+          + '<span class="cart-item-type ' + css + '">' + label + '</span>'
+        + '</div>'
+        + priceHtml
+        + '<button class="cart-item-remove" onclick="removeItem(\'' + item.id + '\')" title="Retirer">&times;</button>'
+      + '</div>';
+    });
+    document.getElementById('cart-items-list').innerHTML = html;
+
+    /* -- Adapter le formulaire -- */
+    var fixed  = cart.filter(function(i){ return i.type==='fixed'||i.type==='subscription'; });
+    var custom = cart.filter(function(i){ return i.type==='custom'; });
+
+    var names   = cart.map(function(i){ return i.name; });
+    var typeStr = fixed.length && custom.length ? 'achat + devis'
+                : fixed.length ? 'achat'
+                : 'devis';
+
+    document.getElementById('f-services').value = names.join(', ');
+    document.getElementById('f-type').value      = typeStr;
+
+    /* Adapter le texte du bouton */
+    var submitBtn = document.getElementById('submit-btn');
+    if (fixed.length && !custom.length) {
+      submitBtn.textContent = 'Valider et passer au paiement \u2192';
+    } else if (custom.length && !fixed.length) {
+      submitBtn.textContent = 'Envoyer ma demande de devis \u2192';
+    } else {
+      submitBtn.textContent = 'Confirmer ma s\u00e9lection \u2192';
+    }
+
+    /* Préparer la section post-submit */
+    prepareSuccessSection(fixed, custom);
+  }
+
+  function prepareSuccessSection(fixed, custom) {
+    var paySection  = document.getElementById('payment-section');
+    var devisSection= document.getElementById('devis-section');
+
+    if (fixed.length > 0) {
+      paySection.style.display = 'block';
+      var oneTime = fixed.filter(function(i){ return i.type==='fixed'; });
+      var subs    = fixed.filter(function(i){ return i.type==='subscription'; });
+      var total   = oneTime.reduce(function(s,i){ return s+(i.price||0); }, 0);
+
+      var totalStr;
+      if (oneTime.length && subs.length)    totalStr = total + '\u00a0\u20ac + abonnement';
+      else if (!oneTime.length)             totalStr = 'Abonnements';
+      else                                  totalStr = total + '\u00a0\u20ac';
+      document.getElementById('success-total').textContent = totalStr;
+
+      var payHtml = '';
+      fixed.forEach(function(item) {
+        if (item.stripe) {
+          var suffix = item.type==='subscription' ? '/mois' : '';
+          payHtml += '<a href="' + item.stripe + '" target="_blank" rel="noopener" class="cart-pay-btn">'
+            + '<span>' + item.name + '</span>'
+            + '<span class="pay-price">' + item.priceDisplay + suffix + ' \u2192</span>'
+          + '</a>';
+        }
+      });
+      document.getElementById('success-pay-btns').innerHTML = payHtml;
+    } else {
+      paySection.style.display = 'none';
+    }
+
+    devisSection.style.display = custom.length > 0 ? 'block' : 'none';
+  }
+
+  /* ── Soumission du formulaire (AJAX Formspree) ── */
+  document.addEventListener('DOMContentLoaded', function() {
+    var form      = document.getElementById('contact-form');
+    var submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      submitBtn.textContent = 'Envoi en cours\u2026';
+      submitBtn.disabled = true;
+
+      var formData = new FormData(form);
+      var email = document.getElementById('f-email').value;
+
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(function(r) {
+        if (r.ok) {
+          /* Vérifier s'il y a des services payants */
+          var cart = getCartData();
+          var payableItems = cart.filter(function(i) { return i.type === 'fixed' || i.type === 'subscription'; });
+
+          if (payableItems.length > 0) {
+            /* Créer une session Stripe et rediriger */
+            window.createStripeCheckout(email, function(err) {
+              if (err) {
+                submitBtn.textContent = 'Erreur paiement \u2014 r\u00e9essayez';
+                submitBtn.style.background = 'var(--terracotta-dark)';
+                submitBtn.disabled = false;
+              }
+            });
+          } else {
+            /* Seulement des services sur devis — montrer juste le success */
+            showSuccess();
+          }
+        } else {
+          /* Erreur HTTP (4xx/5xx) : on informe l'utilisateur */
+          submitBtn.textContent = 'Erreur \u2014 r\u00e9essayez';
+          submitBtn.style.background = 'var(--terracotta-dark)';
+          submitBtn.disabled = false;
+        }
+      })
+      .catch(function() {
+        /* FIX: était showSuccess() — affiche maintenant l'erreur réseau réelle */
+        submitBtn.textContent = 'Erreur r\u00e9seau \u2014 v\u00e9rifiez votre connexion';
+        submitBtn.style.background = 'var(--terracotta-dark)';
+        submitBtn.disabled = false;
+      });
+    });
+  });
+
+  function showSuccess() {
+    /* Passer à l'étape 3 */
+    document.getElementById('step2').classList.remove('active');
+    document.getElementById('step2').classList.add('done');
+    document.getElementById('step3').classList.add('active');
+
+    document.getElementById('step-form').style.display    = 'none';
+    document.getElementById('cart-success').style.display = 'block';
+
+    /* Vider le panier une fois confirmé */
+    localStorage.removeItem('karay_cart');
+
+    window.scrollTo({ top: document.getElementById('cart-content').offsetTop - 80, behavior: 'smooth' });
+  }
+
+  /* ── Retirer un article ── */
+  function removeItem(id) {
+    removeFromCart(id);
+    renderCart();
+  }
+
+  /* ── Vider le panier ── */
+  function clearCart() {
+    if (window.confirm('Vider compl\u00e8tement le panier\u00a0?')) {
+      localStorage.removeItem('karay_cart');
+      renderCart();
+    }
+  }
+
+  /* ── Navigation mobile ── */
+  function toggleMobile() {
+    var drawer = document.getElementById('mobile-drawer');
+    var burger = document.getElementById('burger-btn');
+    if (!drawer || !burger) return;
+    var open = drawer.classList.toggle('open');
+    burger.classList.toggle('active', open);
+    burger.setAttribute('aria-expanded', open);
+    burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    drawer.setAttribute('aria-hidden', !open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  document.addEventListener('keydown', function(e) {
+    var d = document.getElementById('mobile-drawer');
+    if (e.key === 'Escape' && d && d.classList.contains('open')) toggleMobile();
+  });
+
+  /* ── Init ── */
+  document.addEventListener('DOMContentLoaded', renderCart);
+</script>
+</body>
+</html>
