@@ -1,0 +1,11 @@
+# Protège config.php — accessible seulement par le code PHP, pas via URL
+<Files "config.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Autorise les appels POST JSON à create-checkout.php
+<Files "create-checkout.php">
+    Order allow,deny
+    Allow from all
+</Files>

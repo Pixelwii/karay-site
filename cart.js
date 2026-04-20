@@ -114,8 +114,8 @@
       email: email
     };
 
-    // Appeler la fonction serverless
-    fetch('/.netlify/functions/create-checkout', {
+    // Appeler le backend PHP sur Hostinger
+    fetch('/api/create-checkout.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(checkoutData)
