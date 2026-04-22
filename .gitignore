@@ -4,3 +4,6 @@ node_modules/
 .DS_Store
 .vscode/
 *.log
+
+# Secrets — ne jamais commiter
+api/config.php
